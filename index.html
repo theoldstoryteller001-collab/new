@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NSE Nifty 500 Dashboard v5</title>
+<title>NSE Nifty 500 Dashboard v6</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Bebas+Neue&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -143,8 +143,8 @@ footer{border-top:1px solid var(--b1);padding:12px 0 0;margin-top:28px;color:var
 
 <header>
   <div>
-    <div class="logo">NSE <em>Nifty 500</em> <b>Dashboard</b> <span style="font-size:13px;color:var(--m);letter-spacing:.1em">v5</span></div>
-    <div class="hdate">Tue, 23 Jun 2026 &nbsp;·&nbsp; 13 Indicators &nbsp;·&nbsp; Multi-Period Momentum &nbsp;·&nbsp; Sectoral Heatmap &nbsp;·&nbsp; 296 stocks</div>
+    <div class="logo">NSE <em>Nifty 500</em> <b>Dashboard</b> <span style="font-size:13px;color:var(--m);letter-spacing:.1em">v6</span></div>
+    <div class="hdate">Tue, 23 Jun 2026 &nbsp;·&nbsp; 13 Indicators &nbsp;·&nbsp; Multi-Period Momentum &nbsp;·&nbsp; Sectoral Heatmap &nbsp;·&nbsp; Risk &amp; Liquidity Desk &nbsp;·&nbsp; 296 stocks</div>
     <div style="margin-top:5px;font-size:10px;color:var(--m);font-family:var(--fb)">
       Nifty 500 benchmark: <span style="color:var(--acc2)">1D: -1.1% · 1W: +0.1% · 1M: +1.6% · 3M: +5.0% · 1Y: -0.2%</span>
     </div>
@@ -159,6 +159,8 @@ footer{border-top:1px solid var(--b1);padding:12px 0 0;margin-top:28px;color:var
       <div class="stat-box"><div class="stat-val">296</div><div class="stat-lbl">Universe</div></div>
       <div class="stat-box"><div class="stat-val">54</div><div class="stat-lbl">Avg RSI</div></div>
       <div class="stat-box"><div class="stat-val">10.2</div><div class="stat-lbl">Avg TA Score</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:var(--pos)">4</div><div class="stat-lbl">52W New Highs</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:var(--neg)">4</div><div class="stat-lbl">52W New Lows</div></div>
     </div>
 
 <!-- ══ SECTORAL HEATMAP ══ -->
@@ -521,6 +523,177 @@ footer{border-top:1px solid var(--b1);padding:12px 0 0;margin-top:28px;color:var
     <tbody><tr class="lrow"><td class="rank">1</td><td class="tk">VEDL</td><td class="nr">&#8377;281.70</td><td class="nr"><span class="neg">-7.90%</span></td><td class="nr">174,615,069</td></tr><tr class="lrow"><td class="rank">2</td><td class="tk">NATIONALUM</td><td class="nr">&#8377;355.40</td><td class="nr"><span class="neg">-5.97%</span></td><td class="nr">19,470,289</td></tr><tr class="lrow"><td class="rank">3</td><td class="tk">GTPL</td><td class="nr">&#8377;60.14</td><td class="nr"><span class="neg">-5.31%</span></td><td class="nr">154,696</td></tr><tr class="lrow"><td class="rank">4</td><td class="tk">SBFC</td><td class="nr">&#8377;89.68</td><td class="nr"><span class="neg">-3.84%</span></td><td class="nr">3,567,357</td></tr><tr class="lrow"><td class="rank">5</td><td class="tk">GNFC</td><td class="nr">&#8377;559.75</td><td class="nr"><span class="neg">-3.74%</span></td><td class="nr">459,841</td></tr><tr class="lrow"><td class="rank">6</td><td class="tk">ASHOKLEY</td><td class="nr">&#8377;151.46</td><td class="nr"><span class="neg">-3.65%</span></td><td class="nr">20,923,424</td></tr><tr class="lrow"><td class="rank">7</td><td class="tk">ALLCARGO</td><td class="nr">&#8377;8.24</td><td class="nr"><span class="neg">-3.63%</span></td><td class="nr">8,190,980</td></tr><tr class="lrow"><td class="rank">8</td><td class="tk">ANGELONE</td><td class="nr">&#8377;342.10</td><td class="nr"><span class="neg">-3.58%</span></td><td class="nr">8,483,557</td></tr><tr class="lrow"><td class="rank">9</td><td class="tk">CERA</td><td class="nr">&#8377;6,430.00</td><td class="nr"><span class="neg">-3.48%</span></td><td class="nr">19,039</td></tr><tr class="lrow"><td class="rank">10</td><td class="tk">HFCL</td><td class="nr">&#8377;202.29</td><td class="nr"><span class="neg">-3.42%</span></td><td class="nr">33,782,410</td></tr></tbody></table>
   </div>
 </div>
+
+<!-- ══ 52-WEEK HIGH/LOW WATCH (v6) ══ -->
+<div class="sec"><span class="dot"></span>52-Week High/Low Watch — Breakout &amp; Reversal Candidates</div>
+<div class="g2">
+  <div class="card">
+    <div class="ch">&#9650; Near 52W High <span class="pill pill-b2">BREAKOUT WATCH</span></div>
+    <table><thead><tr><th>#</th><th>Ticker</th><th class="nr">Close</th><th class="nr">52W High</th><th class="nr">% From High</th><th>Flag</th></tr></thead>
+    <tbody><tr><td class="rank">1</td><td class="tk">BHARATFORG</td>
+              <td class="nr">&#8377;2,152.30</td>
+              <td class="nr">&#8377;2,152.30</td>
+              <td class="nr"><span class="pos">+0.0%</span></td>
+              <td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">2</td><td class="tk">FLUOROCHEM</td>
+              <td class="nr">&#8377;3,890.90</td>
+              <td class="nr">&#8377;3,890.90</td>
+              <td class="nr"><span class="pos">+0.0%</span></td>
+              <td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">3</td><td class="tk">LAURUSLABS</td>
+              <td class="nr">&#8377;1,481.00</td>
+              <td class="nr">&#8377;1,481.00</td>
+              <td class="nr"><span class="pos">+0.0%</span></td>
+              <td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">4</td><td class="tk">ZYDUSLIFE</td>
+              <td class="nr">&#8377;1,112.20</td>
+              <td class="nr">&#8377;1,112.20</td>
+              <td class="nr"><span class="pos">+0.0%</span></td>
+              <td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">5</td><td class="tk">HONASA</td>
+              <td class="nr">&#8377;419.90</td>
+              <td class="nr">&#8377;419.95</td>
+              <td class="nr"><span class="pos">-0.0%</span></td>
+              <td></td></tr><tr><td class="rank">6</td><td class="tk">APOLLOHOSP</td>
+              <td class="nr">&#8377;8,487.50</td>
+              <td class="nr">&#8377;8,524.00</td>
+              <td class="nr"><span class="pos">-0.4%</span></td>
+              <td></td></tr><tr><td class="rank">7</td><td class="tk">NYKAA</td>
+              <td class="nr">&#8377;303.05</td>
+              <td class="nr">&#8377;304.35</td>
+              <td class="nr"><span class="pos">-0.4%</span></td>
+              <td></td></tr><tr><td class="rank">8</td><td class="tk">WELCORP</td>
+              <td class="nr">&#8377;1,416.40</td>
+              <td class="nr">&#8377;1,423.40</td>
+              <td class="nr"><span class="pos">-0.5%</span></td>
+              <td></td></tr><tr><td class="rank">9</td><td class="tk">GRINDWELL</td>
+              <td class="nr">&#8377;2,125.40</td>
+              <td class="nr">&#8377;2,136.80</td>
+              <td class="nr"><span class="pos">-0.5%</span></td>
+              <td></td></tr><tr><td class="rank">10</td><td class="tk">ENGINERSIN</td>
+              <td class="nr">&#8377;260.24</td>
+              <td class="nr">&#8377;262.35</td>
+              <td class="nr"><span class="pos">-0.8%</span></td>
+              <td></td></tr></tbody></table>
+  </div>
+  <div class="card">
+    <div class="ch">&#9660; Near 52W Low <span class="pill pill-p">REVERSAL WATCH</span></div>
+    <table><thead><tr><th>#</th><th>Ticker</th><th class="nr">Close</th><th class="nr">52W Low</th><th class="nr">% From Low</th><th>Flag</th></tr></thead>
+    <tbody><tr><td class="rank">1</td><td class="tk">HCLTECH</td>
+              <td class="nr">&#8377;1,109.50</td>
+              <td class="nr">&#8377;1,109.50</td>
+              <td class="nr"><span class="neg">+0.0%</span></td>
+              <td><span class="badge-os">NEW LOW</span></td></tr><tr><td class="rank">2</td><td class="tk">INFY</td>
+              <td class="nr">&#8377;1,029.30</td>
+              <td class="nr">&#8377;1,029.30</td>
+              <td class="nr"><span class="neg">+0.0%</span></td>
+              <td><span class="badge-os">NEW LOW</span></td></tr><tr><td class="rank">3</td><td class="tk">TCS</td>
+              <td class="nr">&#8377;2,059.60</td>
+              <td class="nr">&#8377;2,059.60</td>
+              <td class="nr"><span class="neg">+0.0%</span></td>
+              <td><span class="badge-os">NEW LOW</span></td></tr><tr><td class="rank">4</td><td class="tk">WIPRO</td>
+              <td class="nr">&#8377;174.49</td>
+              <td class="nr">&#8377;174.49</td>
+              <td class="nr"><span class="neg">+0.0%</span></td>
+              <td><span class="badge-os">NEW LOW</span></td></tr><tr><td class="rank">5</td><td class="tk">ZENSARTECH</td>
+              <td class="nr">&#8377;443.45</td>
+              <td class="nr">&#8377;442.80</td>
+              <td class="nr"><span class="neg">+0.1%</span></td>
+              <td></td></tr><tr><td class="rank">6</td><td class="tk">HAPPSTMNDS</td>
+              <td class="nr">&#8377;344.75</td>
+              <td class="nr">&#8377;337.50</td>
+              <td class="nr"><span class="neg">+2.1%</span></td>
+              <td></td></tr><tr><td class="rank">7</td><td class="tk">DABUR</td>
+              <td class="nr">&#8377;419.80</td>
+              <td class="nr">&#8377;410.45</td>
+              <td class="nr"><span class="neg">+2.3%</span></td>
+              <td></td></tr><tr><td class="rank">8</td><td class="tk">JUBLFOOD</td>
+              <td class="nr">&#8377;423.45</td>
+              <td class="nr">&#8377;413.15</td>
+              <td class="nr"><span class="neg">+2.5%</span></td>
+              <td></td></tr><tr><td class="rank">9</td><td class="tk">PIIND</td>
+              <td class="nr">&#8377;2,767.00</td>
+              <td class="nr">&#8377;2,680.80</td>
+              <td class="nr"><span class="nt">+3.2%</span></td>
+              <td></td></tr><tr><td class="rank">10</td><td class="tk">BRITANNIA</td>
+              <td class="nr">&#8377;5,241.00</td>
+              <td class="nr">&#8377;5,064.00</td>
+              <td class="nr"><span class="nt">+3.5%</span></td>
+              <td></td></tr></tbody></table>
+  </div>
+</div>
+
+<!-- ══ GAP SCANNER (v6) ══ -->
+<div class="sec"><span class="dot"></span>Gap Scanner — Open vs Prior Close</div>
+<div class="g2">
+  <div class="card">
+    <div class="ch">&#9650; Top 10 Gap-Ups <span class="pill pill-g">GAP &amp; GO / FADE</span></div>
+    <table><thead><tr><th>#</th><th>Ticker</th><th class="nr">Close</th><th class="nr">Gap%</th><th class="nr">1D%</th></tr></thead>
+    <tbody><tr><td class="rank">1</td><td class="tk">NAUKRI</td>
+              <td class="nr">&#8377;1,011.60</td>
+              <td class="nr"><span class="pos">&#8593; +2.58%</span></td>
+              <td class="nr"><span class="pos">+2.75%</span></td></tr><tr><td class="rank">2</td><td class="tk">SUMICHEM</td>
+              <td class="nr">&#8377;433.65</td>
+              <td class="nr"><span class="pos">&#8593; +1.67%</span></td>
+              <td class="nr"><span class="neg">-1.20%</span></td></tr><tr><td class="rank">3</td><td class="tk">SNOWMAN</td>
+              <td class="nr">&#8377;38.79</td>
+              <td class="nr"><span class="pos">&#8593; +1.44%</span></td>
+              <td class="nr"><span class="neg">-2.12%</span></td></tr><tr><td class="rank">4</td><td class="tk">MAHLOG</td>
+              <td class="nr">&#8377;383.60</td>
+              <td class="nr"><span class="pos">&#8593; +1.30%</span></td>
+              <td class="nr"><span class="pos">+3.77%</span></td></tr><tr><td class="rank">5</td><td class="tk">ALKEM</td>
+              <td class="nr">&#8377;5,415.50</td>
+              <td class="nr"><span class="pos">&#8593; +1.29%</span></td>
+              <td class="nr"><span class="pos">+0.90%</span></td></tr><tr><td class="rank">6</td><td class="tk">PSPPROJECT</td>
+              <td class="nr">&#8377;962.05</td>
+              <td class="nr"><span class="pos">&#8593; +1.29%</span></td>
+              <td class="nr"><span class="neg">-0.26%</span></td></tr><tr><td class="rank">7</td><td class="tk">LEMONTREE</td>
+              <td class="nr">&#8377;118.91</td>
+              <td class="nr"><span class="pos">&#8593; +1.05%</span></td>
+              <td class="nr"><span class="pos">+0.13%</span></td></tr><tr><td class="rank">8</td><td class="tk">METROBRAND</td>
+              <td class="nr">&#8377;1,046.20</td>
+              <td class="nr"><span class="pos">&#8593; +1.04%</span></td>
+              <td class="nr"><span class="pos">+0.20%</span></td></tr><tr><td class="rank">9</td><td class="tk">SJVN</td>
+              <td class="nr">&#8377;72.96</td>
+              <td class="nr"><span class="pos">&#8593; +1.03%</span></td>
+              <td class="nr"><span class="neg">-1.59%</span></td></tr><tr><td class="rank">10</td><td class="tk">WELCORP</td>
+              <td class="nr">&#8377;1,416.40</td>
+              <td class="nr"><span class="pos">&#8593; +1.03%</span></td>
+              <td class="nr"><span class="pos">+0.85%</span></td></tr></tbody></table>
+  </div>
+  <div class="card">
+    <div class="ch">&#9660; Top 10 Gap-Downs <span class="pill pill-r2">GAP &amp; GO / FADE</span></div>
+    <table><thead><tr><th>#</th><th>Ticker</th><th class="nr">Close</th><th class="nr">Gap%</th><th class="nr">1D%</th></tr></thead>
+    <tbody><tr><td class="rank">1</td><td class="tk">VEDL</td>
+              <td class="nr">&#8377;281.70</td>
+              <td class="nr"><span class="neg">&#8595; -3.71%</span></td>
+              <td class="nr"><span class="neg">-7.90%</span></td></tr><tr><td class="rank">2</td><td class="tk">PERSISTENT</td>
+              <td class="nr">&#8377;4,836.50</td>
+              <td class="nr"><span class="neg">&#8595; -2.01%</span></td>
+              <td class="nr"><span class="neg">-0.49%</span></td></tr><tr><td class="rank">3</td><td class="tk">NATIONALUM</td>
+              <td class="nr">&#8377;355.40</td>
+              <td class="nr"><span class="neg">&#8595; -1.57%</span></td>
+              <td class="nr"><span class="neg">-5.97%</span></td></tr><tr><td class="rank">4</td><td class="tk">HINDALCO</td>
+              <td class="nr">&#8377;986.80</td>
+              <td class="nr"><span class="neg">&#8595; -1.50%</span></td>
+              <td class="nr"><span class="neg">-2.70%</span></td></tr><tr><td class="rank">5</td><td class="tk">MAXHEALTH</td>
+              <td class="nr">&#8377;1,078.05</td>
+              <td class="nr"><span class="neg">&#8595; -1.23%</span></td>
+              <td class="nr"><span class="neg">-1.55%</span></td></tr><tr><td class="rank">6</td><td class="tk">AAVAS</td>
+              <td class="nr">&#8377;1,452.20</td>
+              <td class="nr"><span class="neg">&#8595; -1.13%</span></td>
+              <td class="nr"><span class="neg">-0.98%</span></td></tr><tr><td class="rank">7</td><td class="tk">INFY</td>
+              <td class="nr">&#8377;1,029.30</td>
+              <td class="nr"><span class="neg">&#8595; -1.09%</span></td>
+              <td class="nr"><span class="neg">-3.39%</span></td></tr><tr><td class="rank">8</td><td class="tk">KOTAKBANK</td>
+              <td class="nr">&#8377;401.65</td>
+              <td class="nr"><span class="neg">&#8595; -1.03%</span></td>
+              <td class="nr"><span class="neg">-0.12%</span></td></tr><tr><td class="rank">9</td><td class="tk">JSWSTEEL</td>
+              <td class="nr">&#8377;1,242.20</td>
+              <td class="nr"><span class="neg">&#8595; -0.97%</span></td>
+              <td class="nr"><span class="neg">-3.13%</span></td></tr><tr><td class="rank">10</td><td class="tk">MOIL</td>
+              <td class="nr">&#8377;283.80</td>
+              <td class="nr"><span class="neg">&#8595; -0.86%</span></td>
+              <td class="nr"><span class="neg">-2.64%</span></td></tr></tbody></table>
+  </div>
+</div>
+
 
 <!-- ══ MULTI-PERIOD MOMENTUM ══ -->
 <div class="sec"><span class="dot"></span>Multi-Period Momentum — Absolute vs Index (Nifty 500 alpha · Top 10 + Bottom 5)</div>
@@ -1293,6 +1466,205 @@ footer{border-top:1px solid var(--b1);padding:12px 0 0;margin-top:28px;color:var
   <tbody><tr><td class="rank">1</td><td class="tk">VEDL</td><td class="nr">&#8377;281.70</td><td class="nr"><span class="neg">-7.90%</span></td><td><div class="vbw"><div class="vb" style="width:100%"></div><span class="vl">174,615,069</span></div></td></tr><tr><td class="rank">2</td><td class="tk">YESBANK</td><td class="nr">&#8377;24.55</td><td class="nr"><span class="neg">-1.64%</span></td><td><div class="vbw"><div class="vb" style="width:51%"></div><span class="vl">89,145,013</span></div></td></tr><tr><td class="rank">3</td><td class="tk">SUZLON</td><td class="nr">&#8377;58.29</td><td class="nr"><span class="neg">-1.72%</span></td><td><div class="vbw"><div class="vb" style="width:39%"></div><span class="vl">68,322,361</span></div></td></tr><tr><td class="rank">4</td><td class="tk">JPPOWER</td><td class="nr">&#8377;18.02</td><td class="nr"><span class="neg">-1.10%</span></td><td><div class="vbw"><div class="vb" style="width:35%"></div><span class="vl">61,149,130</span></div></td></tr><tr><td class="rank">5</td><td class="tk">NMDC</td><td class="nr">&#8377;85.26</td><td class="nr"><span class="neg">-3.32%</span></td><td><div class="vbw"><div class="vb" style="width:28%"></div><span class="vl">49,908,338</span></div></td></tr><tr><td class="rank">6</td><td class="tk">IDFCFIRSTB</td><td class="nr">&#8377;78.75</td><td class="nr"><span class="neg">-2.40%</span></td><td><div class="vbw"><div class="vb" style="width:20%"></div><span class="vl">36,243,595</span></div></td></tr><tr><td class="rank">7</td><td class="tk">TATASTEEL</td><td class="nr">&#8377;193.56</td><td class="nr"><span class="neg">-2.72%</span></td><td><div class="vbw"><div class="vb" style="width:19%"></div><span class="vl">34,631,519</span></div></td></tr><tr><td class="rank">8</td><td class="tk">HFCL</td><td class="nr">&#8377;202.29</td><td class="nr"><span class="neg">-3.42%</span></td><td><div class="vbw"><div class="vb" style="width:19%"></div><span class="vl">33,782,410</span></div></td></tr><tr><td class="rank">9</td><td class="tk">ZEEL</td><td class="nr">&#8377;114.86</td><td class="nr"><span class="neg">-0.77%</span></td><td><div class="vbw"><div class="vb" style="width:17%"></div><span class="vl">30,861,691</span></div></td></tr><tr><td class="rank">10</td><td class="tk">HDFCBANK</td><td class="nr">&#8377;774.65</td><td class="nr"><span class="neg">-1.49%</span></td><td><div class="vbw"><div class="vb" style="width:16%"></div><span class="vl">28,282,853</span></div></td></tr></tbody>
 </table></div>
 
+<!-- ══ RVOL SCANNER (v6) ══ -->
+<div class="sec"><span class="dot"></span>Unusual Volume Activity — RVOL Scanner (Today's Vol ÷ 20D Avg)</div>
+<div class="card"><table>
+  <thead><tr><th>#</th><th>Ticker</th><th class="nr">Close</th><th class="nr">1D%</th><th class="nr">RVOL</th><th class="nr">Volume</th><th class="nr">Turnover</th></tr></thead>
+  <tbody><tr><td class="rank">1</td><td class="tk">VEDL</td>
+          <td class="nr">&#8377;281.70</td>
+          <td class="nr"><span class="neg">-7.90%</span></td>
+          <td class="nr"><span class="badge-ob">&#9889; 8.8x</span></td>
+          <td class="nr">174,615,069</td>
+          <td class="nr">&#8377;4,918.9 Cr</td></tr><tr><td class="rank">2</td><td class="tk">EMAMILTD</td>
+          <td class="nr">&#8377;401.25</td>
+          <td class="nr"><span class="neg">-1.36%</span></td>
+          <td class="nr"><span class="badge-ob">&#9889; 5.2x</span></td>
+          <td class="nr">2,122,991</td>
+          <td class="nr">&#8377;85.2 Cr</td></tr><tr><td class="rank">3</td><td class="tk">MAHLOG</td>
+          <td class="nr">&#8377;383.60</td>
+          <td class="nr"><span class="pos">+3.77%</span></td>
+          <td class="nr"><span class="badge-ob">&#9889; 4.8x</span></td>
+          <td class="nr">660,323</td>
+          <td class="nr">&#8377;25.3 Cr</td></tr><tr><td class="rank">4</td><td class="tk">SAMHI</td>
+          <td class="nr">&#8377;180.44</td>
+          <td class="nr"><span class="pos">+0.75%</span></td>
+          <td class="nr"><span class="badge-ob">&#9889; 3.9x</span></td>
+          <td class="nr">3,878,126</td>
+          <td class="nr">&#8377;70.0 Cr</td></tr><tr><td class="rank">5</td><td class="tk">SBFC</td>
+          <td class="nr">&#8377;89.68</td>
+          <td class="nr"><span class="neg">-3.84%</span></td>
+          <td class="nr"><span class="badge-ob">&#9889; 3.4x</span></td>
+          <td class="nr">3,567,357</td>
+          <td class="nr">&#8377;32.0 Cr</td></tr><tr><td class="rank">6</td><td class="tk">GTPL</td>
+          <td class="nr">&#8377;60.14</td>
+          <td class="nr"><span class="neg">-5.31%</span></td>
+          <td class="nr"><span class="badge-ob">&#9889; 3.1x</span></td>
+          <td class="nr">154,696</td>
+          <td class="nr">&#8377;0.9 Cr</td></tr><tr><td class="rank">7</td><td class="tk">CIPLA</td>
+          <td class="nr">&#8377;1,433.10</td>
+          <td class="nr"><span class="pos">+1.23%</span></td>
+          <td class="nr"><span class="badge-os">3.0x</span></td>
+          <td class="nr">4,957,944</td>
+          <td class="nr">&#8377;710.5 Cr</td></tr><tr><td class="rank">8</td><td class="tk">PRESTIGE</td>
+          <td class="nr">&#8377;1,512.70</td>
+          <td class="nr"><span class="pos">+0.01%</span></td>
+          <td class="nr"><span class="badge-os">2.9x</span></td>
+          <td class="nr">1,985,807</td>
+          <td class="nr">&#8377;300.4 Cr</td></tr><tr><td class="rank">9</td><td class="tk">MEDANTA</td>
+          <td class="nr">&#8377;1,302.80</td>
+          <td class="nr"><span class="pos">+1.14%</span></td>
+          <td class="nr"><span class="badge-os">2.6x</span></td>
+          <td class="nr">627,060</td>
+          <td class="nr">&#8377;81.7 Cr</td></tr><tr><td class="rank">10</td><td class="tk">BIOCON</td>
+          <td class="nr">&#8377;423.20</td>
+          <td class="nr"><span class="pos">+0.50%</span></td>
+          <td class="nr"><span class="badge-os">2.4x</span></td>
+          <td class="nr">6,927,162</td>
+          <td class="nr">&#8377;293.2 Cr</td></tr></tbody>
+</table></div>
+
+<!-- ══ VOLATILITY LEADERBOARD (v6) ══ -->
+<div class="sec"><span class="dot"></span>Volatility Leaderboard — ATR % of Price</div>
+<div class="g2">
+  <div class="card">
+    <div class="ch">&#9889; Highest Volatility <span class="pill pill-a">SIZE DOWN</span></div>
+    <table><thead><tr><th>#</th><th>Ticker</th><th class="nr">Close</th><th class="nr">ATR%</th><th class="nr">ATR (₹)</th><th class="nr">1D%</th></tr></thead>
+    <tbody><tr><td class="rank">1</td><td class="tk">STEELXIND</td>
+              <td class="nr">&#8377;12.88</td>
+              <td class="nr">5.73%</td>
+              <td class="nr">&#8377;0.74</td>
+              <td class="nr"><span class="neg">-2.65%</span></td></tr><tr><td class="rank">2</td><td class="tk">PARAS</td>
+              <td class="nr">&#8377;1,333.00</td>
+              <td class="nr">5.44%</td>
+              <td class="nr">&#8377;72.52</td>
+              <td class="nr"><span class="neg">-3.33%</span></td></tr><tr><td class="rank">3</td><td class="tk">STLTECH</td>
+              <td class="nr">&#8377;607.30</td>
+              <td class="nr">5.44%</td>
+              <td class="nr">&#8377;33.04</td>
+              <td class="nr"><span class="neg">-2.67%</span></td></tr><tr><td class="rank">4</td><td class="tk">VEDL</td>
+              <td class="nr">&#8377;281.70</td>
+              <td class="nr">5.26%</td>
+              <td class="nr">&#8377;14.82</td>
+              <td class="nr"><span class="neg">-7.90%</span></td></tr><tr><td class="rank">5</td><td class="tk">HFCL</td>
+              <td class="nr">&#8377;202.29</td>
+              <td class="nr">5.09%</td>
+              <td class="nr">&#8377;10.30</td>
+              <td class="nr"><span class="neg">-3.42%</span></td></tr><tr><td class="rank">6</td><td class="tk">CARTRADE</td>
+              <td class="nr">&#8377;2,636.80</td>
+              <td class="nr">4.93%</td>
+              <td class="nr">&#8377;130.05</td>
+              <td class="nr"><span class="pos">+2.55%</span></td></tr><tr><td class="rank">7</td><td class="tk">BALKRISHNA</td>
+              <td class="nr">&#8377;19.53</td>
+              <td class="nr">4.89%</td>
+              <td class="nr">&#8377;0.95</td>
+              <td class="nr"><span class="pos">+1.61%</span></td></tr><tr><td class="rank">8</td><td class="tk">ZEEL</td>
+              <td class="nr">&#8377;114.86</td>
+              <td class="nr">4.86%</td>
+              <td class="nr">&#8377;5.58</td>
+              <td class="nr"><span class="neg">-0.77%</span></td></tr><tr><td class="rank">9</td><td class="tk">EASEMYTRIP</td>
+              <td class="nr">&#8377;7.85</td>
+              <td class="nr">4.74%</td>
+              <td class="nr">&#8377;0.37</td>
+              <td class="nr"><span class="neg">-0.25%</span></td></tr><tr><td class="rank">10</td><td class="tk">V2RETAIL</td>
+              <td class="nr">&#8377;232.16</td>
+              <td class="nr">4.74%</td>
+              <td class="nr">&#8377;11.01</td>
+              <td class="nr"><span class="neg">-2.67%</span></td></tr></tbody></table>
+  </div>
+  <div class="card">
+    <div class="ch">&#10052; Lowest Volatility <span class="pill pill-b2">COILING</span></div>
+    <table><thead><tr><th>#</th><th>Ticker</th><th class="nr">Close</th><th class="nr">ATR%</th><th class="nr">ATR (₹)</th><th class="nr">1D%</th></tr></thead>
+    <tbody><tr><td class="rank">1</td><td class="tk">BRITANNIA</td>
+              <td class="nr">&#8377;5,241.00</td>
+              <td class="nr">1.55%</td>
+              <td class="nr">&#8377;81.00</td>
+              <td class="nr"><span class="pos">+0.45%</span></td></tr><tr><td class="rank">2</td><td class="tk">ITC</td>
+              <td class="nr">&#8377;290.00</td>
+              <td class="nr">1.61%</td>
+              <td class="nr">&#8377;4.68</td>
+              <td class="nr"><span class="neg">-0.43%</span></td></tr><tr><td class="rank">3</td><td class="tk">APOLLOHOSP</td>
+              <td class="nr">&#8377;8,487.50</td>
+              <td class="nr">1.63%</td>
+              <td class="nr">&#8377;138.36</td>
+              <td class="nr"><span class="pos">+0.22%</span></td></tr><tr><td class="rank">4</td><td class="tk">SUNPHARMA</td>
+              <td class="nr">&#8377;1,868.00</td>
+              <td class="nr">1.63%</td>
+              <td class="nr">&#8377;30.51</td>
+              <td class="nr"><span class="pos">+0.27%</span></td></tr><tr><td class="rank">5</td><td class="tk">AXISBANK</td>
+              <td class="nr">&#8377;1,363.50</td>
+              <td class="nr">1.75%</td>
+              <td class="nr">&#8377;23.84</td>
+              <td class="nr"><span class="pos">+0.36%</span></td></tr><tr><td class="rank">6</td><td class="tk">MRF</td>
+              <td class="nr">&#8377;131,350.00</td>
+              <td class="nr">1.79%</td>
+              <td class="nr">&#8377;2,354.63</td>
+              <td class="nr"><span class="neg">-0.16%</span></td></tr><tr><td class="rank">7</td><td class="tk">LUPIN</td>
+              <td class="nr">&#8377;2,357.80</td>
+              <td class="nr">1.82%</td>
+              <td class="nr">&#8377;42.83</td>
+              <td class="nr"><span class="pos">+0.76%</span></td></tr><tr><td class="rank">8</td><td class="tk">BHARTIARTL</td>
+              <td class="nr">&#8377;1,901.60</td>
+              <td class="nr">1.85%</td>
+              <td class="nr">&#8377;35.22</td>
+              <td class="nr"><span class="neg">-0.78%</span></td></tr><tr><td class="rank">9</td><td class="tk">ICICIBANK</td>
+              <td class="nr">&#8377;1,338.30</td>
+              <td class="nr">1.85%</td>
+              <td class="nr">&#8377;24.69</td>
+              <td class="nr"><span class="neg">-1.04%</span></td></tr><tr><td class="rank">10</td><td class="tk">LT</td>
+              <td class="nr">&#8377;4,179.40</td>
+              <td class="nr">1.89%</td>
+              <td class="nr">&#8377;78.78</td>
+              <td class="nr"><span class="neg">-0.52%</span></td></tr></tbody></table>
+  </div>
+</div>
+
+<!-- ══ LIQUIDITY LEADERS (v6) ══ -->
+<div class="sec"><span class="dot"></span>Liquidity Leaders — Turnover Value (₹ Crore)</div>
+<div class="card"><table>
+  <thead><tr><th>#</th><th>Ticker</th><th class="nr">Close</th><th class="nr">1D%</th><th class="nr">Volume</th><th class="nr">Turnover (₹ Cr)</th></tr></thead>
+  <tbody><tr><td class="rank">1</td><td class="tk">VEDL</td>
+          <td class="nr">&#8377;281.70</td>
+          <td class="nr"><span class="neg">-7.90%</span></td>
+          <td class="nr">174,615,069</td>
+          <td class="nr">&#8377;4,918.9 Cr</td></tr><tr><td class="rank">2</td><td class="tk">HDFCBANK</td>
+          <td class="nr">&#8377;774.65</td>
+          <td class="nr"><span class="neg">-1.49%</span></td>
+          <td class="nr">28,282,853</td>
+          <td class="nr">&#8377;2,190.9 Cr</td></tr><tr><td class="rank">3</td><td class="tk">RELIANCE</td>
+          <td class="nr">&#8377;1,309.50</td>
+          <td class="nr"><span class="neg">-1.28%</span></td>
+          <td class="nr">15,397,596</td>
+          <td class="nr">&#8377;2,016.3 Cr</td></tr><tr><td class="rank">4</td><td class="tk">INFY</td>
+          <td class="nr">&#8377;1,029.30</td>
+          <td class="nr"><span class="neg">-3.39%</span></td>
+          <td class="nr">19,314,665</td>
+          <td class="nr">&#8377;1,988.1 Cr</td></tr><tr><td class="rank">5</td><td class="tk">ICICIBANK</td>
+          <td class="nr">&#8377;1,338.30</td>
+          <td class="nr"><span class="neg">-1.04%</span></td>
+          <td class="nr">11,884,252</td>
+          <td class="nr">&#8377;1,590.5 Cr</td></tr><tr><td class="rank">6</td><td class="tk">BSE</td>
+          <td class="nr">&#8377;3,941.80</td>
+          <td class="nr"><span class="neg">-2.25%</span></td>
+          <td class="nr">3,650,818</td>
+          <td class="nr">&#8377;1,439.1 Cr</td></tr><tr><td class="rank">7</td><td class="tk">TCS</td>
+          <td class="nr">&#8377;2,059.60</td>
+          <td class="nr"><span class="neg">-3.21%</span></td>
+          <td class="nr">6,388,466</td>
+          <td class="nr">&#8377;1,315.8 Cr</td></tr><tr><td class="rank">8</td><td class="tk">SBIN</td>
+          <td class="nr">&#8377;1,024.20</td>
+          <td class="nr"><span class="neg">-1.59%</span></td>
+          <td class="nr">10,410,469</td>
+          <td class="nr">&#8377;1,066.2 Cr</td></tr><tr><td class="rank">9</td><td class="tk">BHARTIARTL</td>
+          <td class="nr">&#8377;1,901.60</td>
+          <td class="nr"><span class="neg">-0.78%</span></td>
+          <td class="nr">5,155,828</td>
+          <td class="nr">&#8377;980.4 Cr</td></tr><tr><td class="rank">10</td><td class="tk">LT</td>
+          <td class="nr">&#8377;4,179.40</td>
+          <td class="nr"><span class="neg">-0.52%</span></td>
+          <td class="nr">2,198,161</td>
+          <td class="nr">&#8377;918.7 Cr</td></tr></tbody>
+</table></div>
+
 <!-- ══ TECHNICAL PICKS ══ -->
 <div class="sec"><span class="dot"></span>Technical Picks — Top 10 by TA Score (13 Indicators · max 18 pts)</div>
 <div class="card" style="overflow-x:auto"><table>
@@ -1466,14 +1838,170 @@ footer{border-top:1px solid var(--b1);padding:12px 0 0;margin-top:28px;color:var
         </tr></tbody>
 </table></div>
 
+<!-- ══ PIVOT POINT LEVELS (v6) ══ -->
+<div class="sec"><span class="dot"></span>Pivot Point Levels — Next-Session Support/Resistance (Top 10 TA Picks)</div>
+<div class="card" style="overflow-x:auto"><table>
+  <thead><tr>
+    <th>#</th><th>Ticker</th><th class="nr">Close</th>
+    <th class="nr">R3</th><th class="nr">R2</th><th class="nr">R1</th>
+    <th class="nr">Pivot</th><th class="nr">S1</th><th class="nr">S2</th><th class="nr">S3</th>
+  </tr></thead>
+  <tbody><tr><td class="rank">1</td><td class="tk">BHEL</td>
+          <td class="nr">&#8377;399.85</td>
+          <td class="nr" style="color:var(--neg)">427.55</td>
+          <td class="nr" style="color:var(--neg)">421.15</td>
+          <td class="nr" style="color:var(--neg)">410.50</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">404.10</td>
+          <td class="nr" style="color:var(--pos)">393.45</td>
+          <td class="nr" style="color:var(--pos)">387.05</td>
+          <td class="nr" style="color:var(--pos)">376.40</td></tr><tr><td class="rank">2</td><td class="tk">FINEORG</td>
+          <td class="nr">&#8377;5,100.00</td>
+          <td class="nr" style="color:var(--neg)">5,573.50</td>
+          <td class="nr" style="color:var(--neg)">5,459.60</td>
+          <td class="nr" style="color:var(--neg)">5,279.80</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">5,165.90</td>
+          <td class="nr" style="color:var(--pos)">4,986.10</td>
+          <td class="nr" style="color:var(--pos)">4,872.20</td>
+          <td class="nr" style="color:var(--pos)">4,692.40</td></tr><tr><td class="rank">3</td><td class="tk">GNFC</td>
+          <td class="nr">&#8377;559.75</td>
+          <td class="nr" style="color:var(--neg)">598.18</td>
+          <td class="nr" style="color:var(--neg)">589.82</td>
+          <td class="nr" style="color:var(--neg)">574.78</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">566.42</td>
+          <td class="nr" style="color:var(--pos)">551.38</td>
+          <td class="nr" style="color:var(--pos)">543.02</td>
+          <td class="nr" style="color:var(--pos)">527.98</td></tr><tr><td class="rank">4</td><td class="tk">GREENPLY</td>
+          <td class="nr">&#8377;295.70</td>
+          <td class="nr" style="color:var(--neg)">313.08</td>
+          <td class="nr" style="color:var(--neg)">308.53</td>
+          <td class="nr" style="color:var(--neg)">302.12</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">297.57</td>
+          <td class="nr" style="color:var(--pos)">291.16</td>
+          <td class="nr" style="color:var(--pos)">286.61</td>
+          <td class="nr" style="color:var(--pos)">280.20</td></tr><tr><td class="rank">5</td><td class="tk">IDFCFIRSTB</td>
+          <td class="nr">&#8377;78.75</td>
+          <td class="nr" style="color:var(--neg)">82.70</td>
+          <td class="nr" style="color:var(--neg)">81.68</td>
+          <td class="nr" style="color:var(--neg)">80.21</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">79.19</td>
+          <td class="nr" style="color:var(--pos)">77.72</td>
+          <td class="nr" style="color:var(--pos)">76.70</td>
+          <td class="nr" style="color:var(--pos)">75.23</td></tr><tr><td class="rank">6</td><td class="tk">IIFL</td>
+          <td class="nr">&#8377;533.75</td>
+          <td class="nr" style="color:var(--neg)">558.08</td>
+          <td class="nr" style="color:var(--neg)">552.12</td>
+          <td class="nr" style="color:var(--neg)">542.93</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">536.97</td>
+          <td class="nr" style="color:var(--pos)">527.78</td>
+          <td class="nr" style="color:var(--pos)">521.82</td>
+          <td class="nr" style="color:var(--pos)">512.63</td></tr><tr><td class="rank">7</td><td class="tk">POLYCAB</td>
+          <td class="nr">&#8377;9,920.50</td>
+          <td class="nr" style="color:var(--neg)">10,216.67</td>
+          <td class="nr" style="color:var(--neg)">10,145.83</td>
+          <td class="nr" style="color:var(--neg)">10,033.17</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">9,962.33</td>
+          <td class="nr" style="color:var(--pos)">9,849.67</td>
+          <td class="nr" style="color:var(--pos)">9,778.83</td>
+          <td class="nr" style="color:var(--pos)">9,666.17</td></tr><tr><td class="rank">8</td><td class="tk">ZEEL</td>
+          <td class="nr">&#8377;114.86</td>
+          <td class="nr" style="color:var(--neg)">122.40</td>
+          <td class="nr" style="color:var(--neg)">120.37</td>
+          <td class="nr" style="color:var(--neg)">117.62</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">115.59</td>
+          <td class="nr" style="color:var(--pos)">112.84</td>
+          <td class="nr" style="color:var(--pos)">110.81</td>
+          <td class="nr" style="color:var(--pos)">108.06</td></tr><tr><td class="rank">9</td><td class="tk">AAVAS</td>
+          <td class="nr">&#8377;1,452.20</td>
+          <td class="nr" style="color:var(--neg)">1,500.97</td>
+          <td class="nr" style="color:var(--neg)">1,488.73</td>
+          <td class="nr" style="color:var(--neg)">1,470.47</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">1,458.23</td>
+          <td class="nr" style="color:var(--pos)">1,439.97</td>
+          <td class="nr" style="color:var(--pos)">1,427.73</td>
+          <td class="nr" style="color:var(--pos)">1,409.47</td></tr><tr><td class="rank">10</td><td class="tk">BOSCHLTD</td>
+          <td class="nr">&#8377;40,190.00</td>
+          <td class="nr" style="color:var(--neg)">40,783.33</td>
+          <td class="nr" style="color:var(--neg)">40,616.67</td>
+          <td class="nr" style="color:var(--neg)">40,403.33</td>
+          <td class="nr" style="color:var(--acc2);font-weight:700">40,236.67</td>
+          <td class="nr" style="color:var(--pos)">40,023.33</td>
+          <td class="nr" style="color:var(--pos)">39,856.67</td>
+          <td class="nr" style="color:var(--pos)">39,643.33</td></tr></tbody>
+</table></div>
+
+<!-- ══ RISK DESK (v6) ══ -->
+<div class="sec"><span class="dot"></span>Risk Desk — Beta vs Nifty 500 &amp; Risk-Adjusted Momentum (Top 10)</div>
+<div class="card" style="overflow-x:auto"><table>
+  <thead><tr>
+    <th>#</th><th>Ticker</th><th class="nr">Close</th>
+    <th class="nr">Beta (60D)</th><th class="nr">Ann. Volatility</th>
+    <th class="nr">1Y Return</th><th class="nr">Risk-Adj. Return</th>
+  </tr></thead>
+  <tbody><tr><td class="rank">1</td><td class="tk">STLTECH</td>
+          <td class="nr">&#8377;607.30</td>
+          <td class="nr"><span class="badge-os">0.55 Low-β</span></td>
+          <td class="nr">61.6%</td>
+          <td class="nr"><span class="pos">+480.87%</span></td>
+          <td class="nr"><span class="pos">+7.80</span></td></tr><tr><td class="rank">2</td><td class="tk">LAURUSLABS</td>
+          <td class="nr">&#8377;1,481.00</td>
+          <td class="nr"><span class="badge-os">-0.02 Low-β</span></td>
+          <td class="nr">29.1%</td>
+          <td class="nr"><span class="pos">+123.33%</span></td>
+          <td class="nr"><span class="pos">+4.24</span></td></tr><tr><td class="rank">3</td><td class="tk">HFCL</td>
+          <td class="nr">&#8377;202.29</td>
+          <td class="nr"><span class="badge-os">0.17 Low-β</span></td>
+          <td class="nr">45.8%</td>
+          <td class="nr"><span class="pos">+145.94%</span></td>
+          <td class="nr"><span class="pos">+3.19</span></td></tr><tr><td class="rank">4</td><td class="tk">ADANIPOWER</td>
+          <td class="nr">&#8377;231.39</td>
+          <td class="nr"><span class="badge-os">0.29 Low-β</span></td>
+          <td class="nr">42.9%</td>
+          <td class="nr"><span class="pos">+110.05%</span></td>
+          <td class="nr"><span class="pos">+2.57</span></td></tr><tr><td class="rank">5</td><td class="tk">NATIONALUM</td>
+          <td class="nr">&#8377;355.40</td>
+          <td class="nr"><span class="badge-os">0.26 Low-β</span></td>
+          <td class="nr">38.7%</td>
+          <td class="nr"><span class="pos">+99.50%</span></td>
+          <td class="nr"><span class="pos">+2.57</span></td></tr><tr><td class="rank">6</td><td class="tk">POLYCAB</td>
+          <td class="nr">&#8377;9,920.50</td>
+          <td class="nr"><span class="badge-os">0.48 Low-β</span></td>
+          <td class="nr">28.8%</td>
+          <td class="nr"><span class="pos">+67.36%</span></td>
+          <td class="nr"><span class="pos">+2.34</span></td></tr><tr><td class="rank">7</td><td class="tk">BHARATFORG</td>
+          <td class="nr">&#8377;2,152.30</td>
+          <td class="nr"><span class="badge-os">0.53 Low-β</span></td>
+          <td class="nr">29.1%</td>
+          <td class="nr"><span class="pos">+66.46%</span></td>
+          <td class="nr"><span class="pos">+2.28</span></td></tr><tr><td class="rank">8</td><td class="tk">FEDERALBNK</td>
+          <td class="nr">&#8377;319.90</td>
+          <td class="nr"><span class="badge-os">0.39 Low-β</span></td>
+          <td class="nr">24.5%</td>
+          <td class="nr"><span class="pos">+55.42%</span></td>
+          <td class="nr"><span class="pos">+2.26</span></td></tr><tr><td class="rank">9</td><td class="tk">MCX</td>
+          <td class="nr">&#8377;2,831.00</td>
+          <td class="nr"><span class="badge-os">0.35 Low-β</span></td>
+          <td class="nr">37.4%</td>
+          <td class="nr"><span class="pos">+79.03%</span></td>
+          <td class="nr"><span class="pos">+2.11</span></td></tr><tr><td class="rank">10</td><td class="tk">TORNTPHARM</td>
+          <td class="nr">&#8377;4,514.10</td>
+          <td class="nr"><span class="badge-os">0.27 Low-β</span></td>
+          <td class="nr">20.5%</td>
+          <td class="nr"><span class="pos">+41.39%</span></td>
+          <td class="nr"><span class="pos">+2.02</span></td></tr></tbody>
+</table></div>
+
 <!-- ══ TA REFERENCE ══ -->
 <div class="sec"><span class="dot"></span>Indicator Quick Reference — 13 Indicators</div>
 <div class="ref-grid"><div class="ref-card"><div class="ref-head">SMA/EMA</div><span class="ref-ticker">Simple & Exponential MAs</span><div class="ref-row"><span class="badge-os ref-badge">P>EMA20</span><span class="ref-desc">Short-term uptrend</span></div><div class="ref-row"><span class="badge-os ref-badge">P>EMA50</span><span class="ref-desc">Medium-term uptrend</span></div><div class="ref-row"><span class="badge-os ref-badge">P>EMA200</span><span class="ref-desc">Long-term bull zone</span></div><div class="ref-row"><span class="badge-os ref-badge">E20>E50</span><span class="ref-desc">Golden cross ↑</span></div></div><div class="ref-card"><div class="ref-head">MACD</div><span class="ref-ticker">12/26/9 Histogram</span><div class="ref-row"><span class="badge-os ref-badge">Hist>0</span><span class="ref-desc">Bull momentum</span></div><div class="ref-row"><span class="badge-ob ref-badge">Hist<0</span><span class="ref-desc">Bear momentum</span></div><div class="ref-row"><span class="badge-os ref-badge">Cross ↑</span><span class="ref-desc">Buy signal</span></div><div class="ref-row"><span class="badge-ob ref-badge">Cross ↓</span><span class="ref-desc">Sell signal</span></div></div><div class="ref-card"><div class="ref-head">RSI</div><span class="ref-ticker">Relative Strength (14)</span><div class="ref-row"><span class="badge-os ref-badge"><30</span><span class="ref-desc">Oversold bounce</span></div><div class="ref-row"><span class="badge-nt ref-badge">30–50</span><span class="ref-desc">Below neutral</span></div><div class="ref-row"><span class="badge-nt ref-badge">50–70</span><span class="ref-desc">Bullish zone</span></div><div class="ref-row"><span class="badge-ob ref-badge">>70</span><span class="ref-desc">Overbought</span></div></div><div class="ref-card"><div class="ref-head">BB</div><span class="ref-ticker">Bollinger Bands %B</span><div class="ref-row"><span class="badge-ob ref-badge">%B>0.9</span><span class="ref-desc">Near upper (OB)</span></div><div class="ref-row"><span class="badge-nt ref-badge">0.4–0.85</span><span class="ref-desc">Mid-upper (bull)</span></div><div class="ref-row"><span class="badge-os ref-badge">%B<0.1</span><span class="ref-desc">Near lower (bounce)</span></div><div class="ref-row"><span class="badge-nt ref-badge">Squeeze</span><span class="ref-desc">Breakout imminent</span></div></div><div class="ref-card"><div class="ref-head">Stoch</div><span class="ref-ticker">Stochastic K/D (14,3)</span><div class="ref-row"><span class="badge-os ref-badge">K<20,K>D</span><span class="ref-desc">Oversold cross ↑</span></div><div class="ref-row"><span class="badge-ob ref-badge">K>80</span><span class="ref-desc">Overbought</span></div><div class="ref-row"><span class="badge-nt ref-badge">K>50,K>D</span><span class="ref-desc">Bullish</span></div><div class="ref-row"><span class="badge-nt ref-badge">K<50,K<D</span><span class="ref-desc">Bearish</span></div></div><div class="ref-card"><div class="ref-head">ATR</div><span class="ref-ticker">Avg True Range (14)</span><div class="ref-row"><span class="badge-ob ref-badge">High ATR</span><span class="ref-desc">High volatility</span></div><div class="ref-row"><span class="badge-nt ref-badge">Low ATR</span><span class="ref-desc">Low vol — watch</span></div><div class="ref-row"><span class="badge-nt ref-badge">ATR↑</span><span class="ref-desc">Expanding</span></div><div class="ref-row"><span class="badge-os ref-badge">ATR↓</span><span class="ref-desc">Contracting</span></div></div><div class="ref-card"><div class="ref-head">OBV</div><span class="ref-ticker">On-Balance Volume</span><div class="ref-row"><span class="badge-os ref-badge">Rising</span><span class="ref-desc">Smart money in</span></div><div class="ref-row"><span class="badge-ob ref-badge">Falling</span><span class="ref-desc">Distribution</span></div><div class="ref-row"><span class="badge-os ref-badge">OBV>Price</span><span class="ref-desc">Bull divergence</span></div><div class="ref-row"><span class="badge-ob ref-badge">OBV<Price</span><span class="ref-desc">Bear divergence</span></div></div><div class="ref-card"><div class="ref-head">VWAP</div><span class="ref-ticker">20-Day Rolling VWAP</span><div class="ref-row"><span class="badge-os ref-badge">P>VWAP</span><span class="ref-desc">Inst. buy zone</span></div><div class="ref-row"><span class="badge-ob ref-badge">P<VWAP</span><span class="ref-desc">Inst. sell zone</span></div><div class="ref-row"><span class="badge-os ref-badge">Cross ↑</span><span class="ref-desc">Buy signal</span></div><div class="ref-row"><span class="badge-ob ref-badge">Cross ↓</span><span class="ref-desc">Sell signal</span></div></div><div class="ref-card"><div class="ref-head">Supertrend</div><span class="ref-ticker">Period 10, Mult 3.0</span><div class="ref-row"><span class="badge-os ref-badge">Bullish ↑</span><span class="ref-desc">Above ST line</span></div><div class="ref-row"><span class="badge-ob ref-badge">Bearish ↓</span><span class="ref-desc">Below ST line</span></div><div class="ref-row"><span class="badge-os ref-badge">Flip ↑</span><span class="ref-desc">Fresh buy</span></div><div class="ref-row"><span class="badge-ob ref-badge">Flip ↓</span><span class="ref-desc">Fresh sell</span></div></div><div class="ref-card"><div class="ref-head">Ichimoku</div><span class="ref-ticker">9/26/52 Cloud</span><div class="ref-row"><span class="badge-os ref-badge">Above cloud</span><span class="ref-desc">Strong bullish</span></div><div class="ref-row"><span class="badge-nt ref-badge">In cloud</span><span class="ref-desc">Indecision</span></div><div class="ref-row"><span class="badge-ob ref-badge">Below cloud</span><span class="ref-desc">Strong bearish</span></div><div class="ref-row"><span class="badge-os ref-badge">TK cross ↑</span><span class="ref-desc">Entry signal</span></div></div><div class="ref-card"><div class="ref-head">Fibonacci</div><span class="ref-ticker">50-bar Retracement</span><div class="ref-row"><span class="badge-ob ref-badge">0%</span><span class="ref-desc">Recent high (res.)</span></div><div class="ref-row"><span class="badge-nt ref-badge">38.2%</span><span class="ref-desc">First key support</span></div><div class="ref-row"><span class="badge-os ref-badge">61.8%</span><span class="ref-desc">Golden ratio</span></div><div class="ref-row"><span class="badge-os ref-badge">100%</span><span class="ref-desc">Recent low (sup.)</span></div></div><div class="ref-card"><div class="ref-head">ADX</div><span class="ref-ticker">Avg Directional (14)</span><div class="ref-row"><span class="badge-nt ref-badge"><20</span><span class="ref-desc">No trend / ranging</span></div><div class="ref-row"><span class="badge-nt ref-badge">20–25</span><span class="ref-desc">Emerging trend</span></div><div class="ref-row"><span class="badge-os ref-badge">>25,+DI</span><span class="ref-desc">Strong uptrend</span></div><div class="ref-row"><span class="badge-ob ref-badge">>25,−DI</span><span class="ref-desc">Strong downtrend</span></div></div></div>
 
+<!-- ══ RISK/LIQUIDITY REFERENCE (v6) ══ -->
+<div class="sec"><span class="dot"></span>Risk, Liquidity &amp; Market-Structure Reference</div>
+<div class="ref-grid"><div class="ref-card"><div class="ref-head">52W Hi/Lo</div><span class="ref-ticker">Distance to 52-week extremes</span><div class="ref-row"><span class="badge-os ref-badge">0% to -3%</span><span class="ref-desc">At/near high — breakout watch</span></div><div class="ref-row"><span class="badge-nt ref-badge">-3% to -15%</span><span class="ref-desc">Healthy uptrend zone</span></div><div class="ref-row"><span class="badge-ob ref-badge">0% to +3%</span><span class="ref-desc">At/near low — reversal watch</span></div><div class="ref-row"><span class="badge-ob ref-badge">New High/Low</span><span class="ref-desc">Printed today</span></div></div><div class="ref-card"><div class="ref-head">RVOL</div><span class="ref-ticker">Volume ÷ 20D Avg Volume</span><div class="ref-row"><span class="badge-ob ref-badge">&gt;3.0x</span><span class="ref-desc">Extreme — news/event likely</span></div><div class="ref-row"><span class="badge-os ref-badge">1.5x–3.0x</span><span class="ref-desc">Elevated — building interest</span></div><div class="ref-row"><span class="badge-nt ref-badge">~1.0x</span><span class="ref-desc">Normal participation</span></div><div class="ref-row"><span class="badge-nt ref-badge">&lt;0.5x</span><span class="ref-desc">Dried up — low conviction</span></div></div><div class="ref-card"><div class="ref-head">ATR %</div><span class="ref-ticker">ATR ÷ Price ×100</span><div class="ref-row"><span class="badge-ob ref-badge">&gt;4%</span><span class="ref-desc">High volatility — size down</span></div><div class="ref-row"><span class="badge-nt ref-badge">2%–4%</span><span class="ref-desc">Moderate, tradable range</span></div><div class="ref-row"><span class="badge-os ref-badge">&lt;2%</span><span class="ref-desc">Low vol — coiling/squeeze</span></div><div class="ref-row"><span class="badge-nt ref-badge">Use for</span><span class="ref-desc">Stop-loss & position sizing</span></div></div><div class="ref-card"><div class="ref-head">Beta (60D)</div><span class="ref-ticker">Rolling vs Nifty 500</span><div class="ref-row"><span class="badge-ob ref-badge">&gt;1.3</span><span class="ref-desc">High-beta — amplifies index moves</span></div><div class="ref-row"><span class="badge-nt ref-badge">0.7–1.3</span><span class="ref-desc">Market-like risk</span></div><div class="ref-row"><span class="badge-os ref-badge">&lt;0.7</span><span class="ref-desc">Low-beta — defensive</span></div><div class="ref-row"><span class="badge-nt ref-badge">&lt;0</span><span class="ref-desc">Inverse to market (rare)</span></div></div><div class="ref-card"><div class="ref-head">Risk-Adj. Ret.</div><span class="ref-ticker">1Y Return ÷ Ann. Volatility</span><div class="ref-row"><span class="badge-os ref-badge">&gt;2.0</span><span class="ref-desc">Strong, smooth outperformer</span></div><div class="ref-row"><span class="badge-nt ref-badge">0.5–2.0</span><span class="ref-desc">Decent risk-adjusted trend</span></div><div class="ref-row"><span class="badge-ob ref-badge">&lt;0.5</span><span class="ref-desc">Choppy/low-conviction trend</span></div><div class="ref-row"><span class="badge-ob ref-badge">Negative</span><span class="ref-desc">Losing & volatile — avoid</span></div></div><div class="ref-card"><div class="ref-head">Gap %</div><span class="ref-ticker">Open vs Prior Close</span><div class="ref-row"><span class="badge-os ref-badge">&gt;+2%</span><span class="ref-desc">Gap-up — watch for fade/fill</span></div><div class="ref-row"><span class="badge-nt ref-badge">-2% to +2%</span><span class="ref-desc">Normal open</span></div><div class="ref-row"><span class="badge-ob ref-badge">&lt;-2%</span><span class="ref-desc">Gap-down — watch for bounce</span></div><div class="ref-row"><span class="badge-nt ref-badge">Strategy</span><span class="ref-desc">Gap-and-go vs gap-fade</span></div></div><div class="ref-card"><div class="ref-head">Turnover</div><span class="ref-ticker">Price × Volume (₹ Cr)</span><div class="ref-row"><span class="badge-os ref-badge">High</span><span class="ref-desc">Deep liquidity, tight spreads</span></div><div class="ref-row"><span class="badge-ob ref-badge">Low</span><span class="ref-desc">Thin — wider slippage risk</span></div><div class="ref-row"><span class="badge-nt ref-badge">Use for</span><span class="ref-desc">Position sizing vs ADV</span></div><div class="ref-row"><span class="badge-nt ref-badge">Compare</span><span class="ref-desc">Across price bands fairly</span></div></div><div class="ref-card"><div class="ref-head">Pivot Points</div><span class="ref-ticker">Classic Floor Trader (PP/R/S)</span><div class="ref-row"><span class="badge-os ref-badge">Above PP</span><span class="ref-desc">Bullish bias for session</span></div><div class="ref-row"><span class="badge-ob ref-badge">Below PP</span><span class="ref-desc">Bearish bias for session</span></div><div class="ref-row"><span class="badge-nt ref-badge">R1/R2/R3</span><span class="ref-desc">Resistance — take-profit zones</span></div><div class="ref-row"><span class="badge-nt ref-badge">S1/S2/S3</span><span class="ref-desc">Support — entry/stop zones</span></div></div></div>
+
 <footer>
   &#9888; Data sourced from Yahoo Finance (yfinance). For <strong>informational purposes only</strong>.
   Not investment advice. Consult a SEBI-registered advisor before trading. Past performance is not indicative of future results.<br>
-  <span class="fts">Generated: 23 Jun 2026  11:00 AM IST</span>
+  <span class="fts">Generated: 23 Jun 2026  01:06 PM IST</span>
 </footer>
 </div>
 <script>
