@@ -277,6 +277,53 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   .pos{color:#16a34a}.neg{color:#dc2626}.na{color:#999}
 }
 @media(max-width:600px){td,th{padding:4px 5px}}
+
+:root[data-theme="light"]{
+  --bg:#eef1f7; --s1:#ffffff; --s2:#f8fafc; --s3:#eef2f8;
+  --border:#dde3ee; --border2:#c9d2e3;
+  --txt:#1e2937; --txt2:#5b6b84; --white:#0f1720;
+  --green:#059669; --red:#dc2626; --amber:#b45309;
+  --blue:#2563eb; --purple:#7c3aed; --cyan:#0891b2; --pink:#db2777;
+  --green-dim:#d1fae5; --red-dim:#fee2e2; --amber-dim:#fef3c7; --blue-dim:#dbeafe;
+}
+[data-theme="light"] body{background:var(--bg);color:var(--txt)}
+[data-theme="light"] .logo{color:#0f1720}
+[data-theme="light"] .footer-brand{color:#0f1720}
+[data-theme="light"] .badge-os{color:#059669}
+[data-theme="light"] .badge-ob{color:#dc2626}
+[data-theme="light"] .tag-a{color:#059669}
+[data-theme="light"] .tag-b{color:#dc2626}
+[data-theme="light"] .pill-b{color:#059669}
+[data-theme="light"] .pill-r{color:#dc2626}
+[data-theme="light"] .na{color:#94a3b8}
+[data-theme="light"] .fts{color:#e2e8f0}
+[data-theme="light"] .tabnav-wrap{background:rgba(238,241,247,.88)}
+[data-theme="light"] tbody tr{border-bottom-color:rgba(148,163,184,.35)}
+[data-theme="light"] tbody tr:hover{background:rgba(15,23,42,.035)}
+[data-theme="light"] .ref-row{border-bottom-color:rgba(148,163,184,.35)}
+[data-theme="light"] .hm-tile{border-color:rgba(15,23,42,.09)}
+[data-theme="light"] .hm-row{border-top-color:rgba(15,23,42,.1)}
+[data-theme="light"] .etf-cat-tile{border-color:rgba(15,23,42,.09)}
+[data-theme="light"] .etf-cat-bw{border-top-color:rgba(15,23,42,.09)}
+[data-theme="light"] [stroke="#1e293b"]{stroke:#e2e8f0}
+[data-theme="light"] [fill="#f1f5f9"]{fill:#0f1720}
+[data-theme="light"] [style*="color:#6ee7b7"]{color:#059669 !important}
+[data-theme="light"] [style*="color:#fca5a5"]{color:#dc2626 !important}
+[data-theme="light"] [style*="color:#34d399"]{color:#059669 !important}
+[data-theme="light"] [style*="color:#f87171"]{color:#dc2626 !important}
+[data-theme="light"] [style*="background:#0c1220;color:#334155"]{background:#eef1f6 !important;color:#c7d0de !important}
+
+/* Sun/moon slider — inline-styled bg/border in the header already use
+   var(--s2)/var(--s3)/var(--border2) so the switch itself re-themes
+   automatically; only the knob position/icon needs a JS-driven toggle. */
+.theme-switch{position:relative;width:50px;height:26px;border-radius:14px;cursor:pointer;
+  background:linear-gradient(135deg,var(--s2),var(--s3));border:1px solid var(--border2);
+  display:inline-flex;align-items:center;padding:2px;flex-shrink:0;transition:background .2s}
+.theme-switch .knob{width:20px;height:20px;border-radius:50%;
+  background:linear-gradient(135deg,#818cf8,#6366f1);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:11px;line-height:1;
+  transition:transform .25s cubic-bezier(.4,0,.2,1);transform:translateX(0)}
+[data-theme="light"] .theme-switch .knob{transform:translateX(24px);background:linear-gradient(135deg,#fbbf24,#f59e0b)}
 </style>
 </head>
 <body><div class="wrap">
@@ -287,10 +334,13 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
     <div class="logo-sub">Institutional-Grade Market Intelligence Dashboard</div>
   </div>
   <div class="header-meta">
-    <span class="hdate"><span class="clockdot"></span>Sunday, 12 July 2026 &nbsp;·&nbsp; 10:53:11 AM IST</span>
+    <span class="hdate"><span class="clockdot"></span>Sunday, 12 July 2026 &nbsp;·&nbsp; 08:19:40 PM IST</span>
     <span class="vix-pill"><span class="pos" title="India VIX — Calm">VIX 12.2 (-8.3%)</span></span>
     <span class="bench-pill">N500 Bench: 1D: +1.2% · 1W: +0.2% · 1M: +5.0% · 3M: +5.5% · 1Y: -1.1%</span>
     <span class="data-source-pill">Live: 928 · Synthetic fallback: 127</span>
+    <div class="theme-switch" id="themeSwitch" onclick="toggleTheme()" title="Switch between dark and light mode">
+      <span class="knob" id="themeKnob">🌙</span>
+    </div>
     <button type="button" onclick="downloadFullReport()" title="Download this complete report (all tabs, current view) as a standalone HTML file"
       style="display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--s2),var(--s3));border:1px solid var(--border2);border-radius:6px;padding:5px 12px;color:var(--cyan);font-family:var(--font-sans);font-size:10.5px;font-weight:700;letter-spacing:.03em;cursor:pointer;transition:all .18s"
       onmouseover="this.style.borderColor='var(--cyan)';this.style.color='var(--white)'"
@@ -749,17 +799,17 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr"><span class="vol-chg-cell"><span class="pos">1D +1.7%</span><br><span class="neg">5D -26.3%</span></span></td>
   <td><canvas class="sp" width="80" height="26" data-c='[58291.5, 58200.69921875, 56742.6015625, 57252.44921875, 58045.8984375]' data-col="#ef4444"></canvas></td>
 </tr><tr>
-  <td class="tk">Nifty Next 50</td><td class="nr">72,268.95</td>
-  <td class="nr"><span class="neg">-0.21%</span></td><td class="nr"><span class="pos">+0.10%</span></td>
-  <td class="nr"><span class="pos">+3.45%</span></td>
-  <td class="nr"><span class="pos">+19.75%</span></td>
-  <td class="nr"><span class="pos">+8.22%</span></td>
-  <td class="nr"><span class="neg" title="vs Nifty 500">α-1.4%</span></td>
-  <td class="nr"><span class="neg" title="vs Nifty 500">α-1.6%</span></td>
-  <td class="nr"><span class="badge-nt">57</span></td>
+  <td class="tk">Nifty Next 50</td><td class="nr">72,391.80</td>
+  <td class="nr"><span class="pos">+1.27%</span></td><td class="nr"><span class="pos">+0.17%</span></td>
+  <td class="nr"><span class="pos">+4.68%</span></td>
+  <td class="nr"><span class="pos">+9.44%</span></td>
+  <td class="nr"><span class="pos">+4.92%</span></td>
+  <td class="nr"><span class="pos" title="vs Nifty 500">α+0.1%</span></td>
+  <td class="nr"><span class="neg" title="vs Nifty 500">α-0.3%</span></td>
+  <td class="nr"><span class="badge-nt">56</span></td>
   <td class="nr"><span class="badge-os">↑ Bullish</span></td>
-  <td class="nr"><span class="vol-chg-cell"><span class="pos">1D +15.2%</span><br><span class="neg">5D -26.7%</span></span></td>
-  <td><canvas class="sp" width="80" height="26" data-c='[71510.296875, 71629.453125, 72100.6484375, 72418.546875, 72268.953125]' data-col="#10b981"></canvas></td>
+  <td class="nr"><span class="vol-chg-cell"><span class="pos">1D +21.4%</span><br><span class="neg">5D -21.0%</span></span></td>
+  <td><canvas class="sp" width="80" height="26" data-c='[72685.6015625, 72248.453125, 70898.75, 71485.8515625, 72391.796875]' data-col="#ef4444"></canvas></td>
 </tr><tr>
   <td class="tk">Nifty Midcap 150</td><td class="nr">23,166.50</td>
   <td class="nr"><span class="pos">+1.36%</span></td><td class="nr"><span class="pos">+1.23%</span></td>
@@ -2197,7 +2247,7 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <div class="card">
     <div class="ch">▲ Breakout Watch — Near 52W High <span class="pill pill-b">BREAKOUT</span></div>
     <table><thead><tr><th>#</th><th>Ticker</th><th class="nr">Close</th><th class="nr">52W High</th><th class="nr">% From High</th><th class="nr">Volume</th><th class="nr">Vol Δ (1D/5D)</th><th>Flag</th></tr></thead>
-    <tbody><tr><td class="rank">1</td><td class="tk">ANANDRATHI <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td><td class="nr">₹2,146.80</td><td class="nr">₹2,146.80</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">1,767,952</td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +288.5%</span><br><span class="neg">5D -16.2%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">2</td><td class="tk">BAJAJCON <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td><td class="nr">₹670.25</td><td class="nr">₹670.25</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">2,128,143</td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +127.7%</span><br><span class="pos">5D +57.2%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">3</td><td class="tk">BALAMINES</td><td class="nr">₹2,414.90</td><td class="nr">₹2,414.90</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">443,691</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -57.5%</span><br><span class="pos">5D +127.5%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">4</td><td class="tk">CCL</td><td class="nr">₹1,214.00</td><td class="nr">₹1,214.00</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">192,140</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -45.9%</span><br><span class="pos">5D +51.8%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">5</td><td class="tk">FUSION</td><td class="nr">₹234.04</td><td class="nr">₹234.04</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">1,991,587</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -8.2%</span><br><span class="neg">5D -44.9%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">6</td><td class="tk">GNA</td><td class="nr">₹475.40</td><td class="nr">₹475.40</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">287,605</td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +196.3%</span><br><span class="neg">5D -56.7%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">7</td><td class="tk">GRANULES</td><td class="nr">₹889.85</td><td class="nr">₹889.85</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">1,450,104</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -9.6%</span><br><span class="pos">5D +5.2%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">8</td><td class="tk">GOODLUCK</td><td class="nr">₹1,565.90</td><td class="nr">₹1,565.90</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">211,589</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -52.6%</span><br><span class="neg">5D -47.5%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">9</td><td class="tk">GREAVESCOT <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td><td class="nr">₹263.60</td><td class="nr">₹263.60</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">20,117,335</td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +389.2%</span><br><span class="pos">5D +45.8%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">10</td><td class="tk">HONASA</td><td class="nr">₹472.10</td><td class="nr">₹472.10</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">1,069,474</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -27.9%</span><br><span class="neg">5D -57.0%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr></tbody></table>
+    <tbody><tr><td class="rank">1</td><td class="tk">ANANDRATHI <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td><td class="nr">₹2,146.80</td><td class="nr">₹2,146.80</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">1,767,952</td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +288.5%</span><br><span class="neg">5D -16.2%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">2</td><td class="tk">BAJAJCON <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td><td class="nr">₹670.25</td><td class="nr">₹670.25</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">2,128,143</td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +127.7%</span><br><span class="pos">5D +57.2%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">3</td><td class="tk">BALAMINES</td><td class="nr">₹2,414.90</td><td class="nr">₹2,414.90</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">443,691</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -57.5%</span><br><span class="pos">5D +127.5%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">4</td><td class="tk">CCL</td><td class="nr">₹1,214.00</td><td class="nr">₹1,214.00</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">192,140</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -45.9%</span><br><span class="pos">5D +51.8%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">5</td><td class="tk">FUSION</td><td class="nr">₹234.04</td><td class="nr">₹234.04</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">1,991,587</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -8.2%</span><br><span class="neg">5D -44.9%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">6</td><td class="tk">GNA</td><td class="nr">₹475.40</td><td class="nr">₹475.40</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">287,605</td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +196.3%</span><br><span class="neg">5D -56.7%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">7</td><td class="tk">GOODLUCK</td><td class="nr">₹1,565.90</td><td class="nr">₹1,565.90</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">211,589</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -52.6%</span><br><span class="neg">5D -47.5%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">8</td><td class="tk">GRANULES</td><td class="nr">₹889.85</td><td class="nr">₹889.85</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">1,450,104</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -9.6%</span><br><span class="pos">5D +5.2%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">9</td><td class="tk">GREAVESCOT <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td><td class="nr">₹263.60</td><td class="nr">₹263.60</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">20,117,335</td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +389.2%</span><br><span class="pos">5D +45.8%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr><tr><td class="rank">10</td><td class="tk">HONASA</td><td class="nr">₹472.10</td><td class="nr">₹472.10</td><td class="nr"><span class="pos">+0.0%</span></td><td class="nr">1,069,474</td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -27.9%</span><br><span class="neg">5D -57.0%</span></span></td><td><span class="badge-ob">NEW HIGH</span></td></tr></tbody></table>
   </div>
   <div class="card">
     <div class="ch">▼ Reversal Watch — Near 52W Low <span class="pill pill-p">REVERSAL</span></div>
@@ -3574,7 +3624,7 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <thead><tr><th>ETF</th><th>Name</th><th>Benchmark</th><th class="nr">NAV</th>
   <th class="nr">ETF 1M%</th><th class="nr">TD 1M</th><th class="nr">ETF 3M%</th><th class="nr">TD 3M</th>
   <th class="nr">Corr (60D)</th><th class="nr">Beta</th><th class="nr">RSI</th><th class="nr">Vol Δ (1D/5D)</th><th>5D</th>
-  </tr></thead><tbody><tr><td class="tk">HDFCBANKETF</td><td style="font-size:10px;color:var(--txt2)">HDFC Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹623.60</td><td class="nr"><span class="pos">+13.19%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +7.84%</span></td><td class="nr"><span class="pos">+37.92%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +33.72%</span></td><td class="nr"><span class="badge-ob">-0.116</span></td><td class="nr"><span class="badge-os">-0.31 Lo-β</span></td><td class="nr"><span class="badge-ob">73</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +58.5%</span><br><span class="neg">5D -14.9%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[605.7919694223588, 607.5229179052614, 619.6788459087878, 612.6513816857705, 623.5984765447917]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">ICICIMCAP</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Nifty Midcap 150</td><td style="font-size:9px;color:var(--txt2)">NIFTYMIDCAP150.NS</td><td class="nr">₹1,220.19</td><td class="nr"><span class="pos">+10.01%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +4.33%</span></td><td class="nr"><span class="pos">+19.29%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +8.50%</span></td><td class="nr"><span class="badge-ob">0.103</span></td><td class="nr"><span class="badge-os">0.11 Lo-β</span></td><td class="nr"><span class="badge-nt">61</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +26.2%</span><br><span class="neg">5D -43.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1235.268020445604, 1218.3302940402245, 1228.781137227273, 1238.578202278694, 1220.1927760356127]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">JUNIORBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Nifty Next 50</td><td style="font-size:9px;color:var(--txt2)">^NSMIDCP</td><td class="nr">₹781.85</td><td class="nr"><span class="pos">+5.87%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +2.42%</span></td><td class="nr"><span class="pos">+8.05%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -11.70%</span></td><td class="nr"><span class="badge-ob">0.032</span></td><td class="nr"><span class="badge-os">0.17 Lo-β</span></td><td class="nr"><span class="badge-nt">56</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +3.8%</span><br><span class="neg">5D -6.8%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[784.8400268554688, 780.280029296875, 765.8800048828125, 771.8200073242188, 781.8499755859375]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">HDFCNEXT50</td><td style="font-size:10px;color:var(--txt2)">HDFC Nifty Next 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSMIDCP</td><td class="nr">₹73.80</td><td class="nr"><span class="pos">+5.85%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +2.40%</span></td><td class="nr"><span class="pos">+7.78%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -11.97%</span></td><td class="nr"><span class="badge-ob">0.032</span></td><td class="nr"><span class="badge-os">0.18 Lo-β</span></td><td class="nr"><span class="badge-nt">56</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -14.3%</span><br><span class="pos">5D +70.2%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[74.01000213623047, 73.56999969482422, 72.2699966430664, 72.80999755859375, 73.80000305175781]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">LICNETFN50</td><td style="font-size:10px;color:var(--txt2)">LIC MF Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹271.65</td><td class="nr"><span class="pos">+4.99%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.72%</span></td><td class="nr"><span class="pos">+2.31%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +1.44%</span></td><td class="nr"><span class="badge-ob">0.154</span></td><td class="nr"><span class="badge-os">0.10 Lo-β</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +333.9%</span><br><span class="pos">5D +12.2%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[273.32000732421875, 273.2099914550781, 266.7900085449219, 269.3299865722656, 271.6499938964844]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">BSLNIFTY</td><td style="font-size:10px;color:var(--txt2)">Aditya Birla SL Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹28.30</td><td class="nr"><span class="pos">+4.74%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.46%</span></td><td class="nr"><span class="pos">+1.69%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.82%</span></td><td class="nr"><span class="badge-ob">0.165</span></td><td class="nr"><span class="badge-os">0.09 Lo-β</span></td><td class="nr"><span class="badge-nt">56</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -66.7%</span><br><span class="neg">5D -48.3%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[28.59000015258789, 28.559999465942383, 28.010000228881836, 28.06999969482422, 28.299999237060547]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">NIFTYBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Nifty 50 BeES</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹275.07</td><td class="nr"><span class="pos">+4.74%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.46%</span></td><td class="nr"><span class="pos">+2.06%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +1.19%</span></td><td class="nr"><span class="badge-ob">0.149</span></td><td class="nr"><span class="badge-os">0.07 Lo-β</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -21.4%</span><br><span class="pos">5D +33.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[277.42999267578125, 277.04998779296875, 271.69000244140625, 272.760009765625, 275.07000732421875]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">SETFNIF50</td><td style="font-size:10px;color:var(--txt2)">SBI ETF Nifty 50</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹260.02</td><td class="nr"><span class="pos">+4.70%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.43%</span></td><td class="nr"><span class="pos">+1.72%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.85%</span></td><td class="nr"><span class="badge-ob">0.145</span></td><td class="nr"><span class="badge-os">0.07 Lo-β</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -10.8%</span><br><span class="neg">5D -21.3%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[262.239990234375, 261.9800109863281, 257.1000061035156, 257.8999938964844, 260.0199890136719]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">MID150BEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Nifty Midcap 150 BeES</td><td style="font-size:9px;color:var(--txt2)">NIFTYMIDCAP150.NS</td><td class="nr">₹239.58</td><td class="nr"><span class="pos">+5.99%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.31%</span></td><td class="nr"><span class="pos">+10.76%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -0.04%</span></td><td class="nr"><span class="badge-os">0.989</span></td><td class="nr"><span class="badge-nt">1.07</span></td><td class="nr"><span class="badge-nt">61</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +38.4%</span><br><span class="pos">5D +8.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[237.58999633789062, 237.05999755859375, 233.1199951171875, 236.3000030517578, 239.5800018310547]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">BANKETF</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹591.48</td><td class="nr"><span class="pos">+5.63%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.28%</span></td><td class="nr"><span class="pos">+4.99%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.79%</span></td><td class="nr"><span class="badge-ob">0.095</span></td><td class="nr"><span class="badge-os">0.05 Lo-β</span></td><td class="nr"><span class="badge-nt">59</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -32.4%</span><br><span class="pos">5D +10.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[594.02001953125, 593.1099853515625, 577.9000244140625, 583.6799926757812, 591.47998046875]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">HDFCNIFTY</td><td style="font-size:10px;color:var(--txt2)">HDFC Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹272.17</td><td class="nr"><span class="pos">+4.46%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.19%</span></td><td class="nr"><span class="pos">+1.08%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.20%</span></td><td class="nr"><span class="badge-os">0.986</span></td><td class="nr"><span class="badge-nt">0.89</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -32.3%</span><br><span class="pos">5D +45.0%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[274.4599914550781, 274.17999267578125, 269.0, 269.6400146484375, 272.1700134277344]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">BANKBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Bank BeES</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹600.17</td><td class="nr"><span class="pos">+5.43%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.09%</span></td><td class="nr"><span class="pos">+4.78%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.58%</span></td><td class="nr"><span class="badge-ob">0.114</span></td><td class="nr"><span class="badge-os">0.06 Lo-β</span></td><td class="nr"><span class="badge-nt">58</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -17.6%</span><br><span class="pos">5D +14.2%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[603.0399780273438, 603.4099731445312, 587.6699829101562, 592.5599975585938, 600.1699829101562]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">MIDCAPETF</td><td style="font-size:10px;color:var(--txt2)">Motilal Nifty Midcap 100</td><td style="font-size:9px;color:var(--txt2)">NIFTYMIDCAP150.NS</td><td class="nr">₹23.64</td><td class="nr"><span class="pos">+5.54%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -0.15%</span></td><td class="nr"><span class="pos">+10.73%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -0.07%</span></td><td class="nr"><span class="badge-os">0.993</span></td><td class="nr"><span class="badge-nt">1.08</span></td><td class="nr"><span class="badge-nt">60</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -6.2%</span><br><span class="neg">5D -25.7%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[23.489999771118164, 23.3799991607666, 23.020000457763672, 23.350000381469727, 23.639999389648438]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">MOM50</td><td style="font-size:10px;color:var(--txt2)">Motilal Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹252.77</td><td class="nr"><span class="pos">+3.39%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -0.88%</span></td><td class="nr"><span class="pos">+1.11%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.24%</span></td><td class="nr"><span class="badge-nt">0.884</span></td><td class="nr"><span class="badge-nt">0.72</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +210.2%</span><br><span class="pos">5D +25.3%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[254.60000610351562, 254.5399932861328, 249.60000610351562, 251.86000061035156, 252.77000427246094]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">UTIBANKETF</td><td style="font-size:10px;color:var(--txt2)">UTI Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹4,070.35</td><td class="nr"><span class="pos">+3.88%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -1.47%</span></td><td class="nr"><span class="pos">+9.03%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +4.83%</span></td><td class="nr"><span class="badge-ob">-0.163</span></td><td class="nr"><span class="badge-os">-0.23 Lo-β</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +15.4%</span><br><span class="pos">5D +52.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[4072.855690852586, 4081.363697809075, 4040.7384440441115, 4020.200812412644, 4070.3491034357685]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">ICICINIFTY</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹3,790.67</td><td class="nr"><span class="neg">-1.48%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -5.75%</span></td><td class="nr"><span class="neg">-0.20%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -1.08%</span></td><td class="nr"><span class="badge-ob">0.065</span></td><td class="nr"><span class="badge-os">0.08 Lo-β</span></td><td class="nr"><span class="badge-nt">39</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +138.4%</span><br><span class="neg">5D -35.6%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[4026.9077377038666, 4071.326152362439, 3994.38997328129, 3908.313569401732, 3790.6706575309177]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">UTINIFTETF</td><td style="font-size:10px;color:var(--txt2)">UTI Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹412.95</td><td class="nr"><span class="neg">-2.42%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -6.69%</span></td><td class="nr"><span class="pos">+17.98%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +17.10%</span></td><td class="nr"><span class="badge-ob">-0.055</span></td><td class="nr"><span class="badge-os">-0.24 Lo-β</span></td><td class="nr"><span class="badge-nt">39</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +51.5%</span><br><span class="pos">5D +9.1%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[439.44222816982113, 431.39470872170074, 428.5952500996111, 418.84626211469947, 412.94821248281863]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">SETFBANK</td><td style="font-size:10px;color:var(--txt2)">SBI ETF Nifty Bank</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹1,091.53</td><td class="nr"><span class="neg">-1.52%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -6.87%</span></td><td class="nr"><span class="neg">-1.27%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -5.48%</span></td><td class="nr"><span class="badge-ob">-0.012</span></td><td class="nr"><span class="badge-os">-0.23 Lo-β</span></td><td class="nr"><span class="badge-nt">48</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -67.9%</span><br><span class="pos">5D +23.7%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1108.060195767247, 1118.9926194626166, 1100.5827785838383, 1104.8945575048788, 1091.526849084159]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">KOTAKBKETF</td><td style="font-size:10px;color:var(--txt2)">Kotak Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹640.36</td><td class="nr"><span class="neg">-3.26%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -8.60%</span></td><td class="nr"><span class="neg">-8.62%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -12.83%</span></td><td class="nr"><span class="badge-ob">0.114</span></td><td class="nr"><span class="badge-os">0.17 Lo-β</span></td><td class="nr"><span class="badge-nt">44</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -32.1%</span><br><span class="neg">5D -28.8%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[621.7801384121103, 633.4999371647474, 624.4795228239476, 629.3314188478915, 640.3584018991013]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">KOTAKNIFTY</td><td style="font-size:10px;color:var(--txt2)">Kotak Nifty ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹1,753.41</td><td class="nr"><span class="neg">-5.29%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -9.56%</span></td><td class="nr"><span class="neg">-2.28%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -3.16%</span></td><td class="nr"><span class="badge-ob">-0.185</span></td><td class="nr"><span class="badge-os">-0.26 Lo-β</span></td><td class="nr"><span class="badge-nt">46</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +44.6%</span><br><span class="neg">5D -17.0%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1730.2888215490495, 1749.9766937912752, 1755.5431103973483, 1741.057773832472, 1753.4132672385238]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">MOM50BANK</td><td style="font-size:10px;color:var(--txt2)">Motilal Nifty Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹1,988.85</td><td class="nr"><span class="neg">-10.64%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -15.99%</span></td><td class="nr"><span class="neg">-19.47%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -23.67%</span></td><td class="nr"><span class="badge-ob">-0.002</span></td><td class="nr"><span class="badge-os">-0.26 Lo-β</span></td><td class="nr"><span class="badge-nt">33</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -58.7%</span><br><span class="neg">5D -26.8%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[2129.7808864650638, 2044.0218464696482, 2076.445502853937, 1984.1306338372833, 1988.8456401496103]' data-col="#ef4444"></canvas></td></tr></tbody></table></div></div>
+  </tr></thead><tbody><tr><td class="tk">HDFCBANKETF</td><td style="font-size:10px;color:var(--txt2)">HDFC Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹623.60</td><td class="nr"><span class="pos">+13.19%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +7.84%</span></td><td class="nr"><span class="pos">+37.92%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +33.72%</span></td><td class="nr"><span class="badge-ob">-0.116</span></td><td class="nr"><span class="badge-os">-0.31 Lo-β</span></td><td class="nr"><span class="badge-ob">73</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +58.5%</span><br><span class="neg">5D -14.9%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[605.7919694223588, 607.5229179052614, 619.6788459087878, 612.6513816857705, 623.5984765447917]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">ICICIMCAP</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Nifty Midcap 150</td><td style="font-size:9px;color:var(--txt2)">NIFTYMIDCAP150.NS</td><td class="nr">₹1,220.19</td><td class="nr"><span class="pos">+10.01%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +4.33%</span></td><td class="nr"><span class="pos">+19.29%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +8.50%</span></td><td class="nr"><span class="badge-ob">0.103</span></td><td class="nr"><span class="badge-os">0.11 Lo-β</span></td><td class="nr"><span class="badge-nt">61</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +26.2%</span><br><span class="neg">5D -43.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1235.268020445604, 1218.3302940402245, 1228.781137227273, 1238.578202278694, 1220.1927760356127]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">JUNIORBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Nifty Next 50</td><td style="font-size:9px;color:var(--txt2)">^NSMIDCP</td><td class="nr">₹781.85</td><td class="nr"><span class="pos">+5.87%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +1.19%</span></td><td class="nr"><span class="pos">+8.05%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -1.39%</span></td><td class="nr"><span class="badge-ob">0.081</span></td><td class="nr"><span class="badge-os">0.17 Lo-β</span></td><td class="nr"><span class="badge-nt">56</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +3.8%</span><br><span class="neg">5D -6.8%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[784.8400268554688, 780.280029296875, 765.8800048828125, 771.8200073242188, 781.8499755859375]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">HDFCNEXT50</td><td style="font-size:10px;color:var(--txt2)">HDFC Nifty Next 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSMIDCP</td><td class="nr">₹73.80</td><td class="nr"><span class="pos">+5.85%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +1.17%</span></td><td class="nr"><span class="pos">+7.78%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -1.66%</span></td><td class="nr"><span class="badge-ob">0.080</span></td><td class="nr"><span class="badge-os">0.18 Lo-β</span></td><td class="nr"><span class="badge-nt">56</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -14.3%</span><br><span class="pos">5D +70.2%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[74.01000213623047, 73.56999969482422, 72.2699966430664, 72.80999755859375, 73.80000305175781]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">LICNETFN50</td><td style="font-size:10px;color:var(--txt2)">LIC MF Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹271.65</td><td class="nr"><span class="pos">+4.99%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.72%</span></td><td class="nr"><span class="pos">+2.31%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +1.44%</span></td><td class="nr"><span class="badge-ob">0.154</span></td><td class="nr"><span class="badge-os">0.10 Lo-β</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +333.9%</span><br><span class="pos">5D +12.2%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[273.32000732421875, 273.2099914550781, 266.7900085449219, 269.3299865722656, 271.6499938964844]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">NIFTYBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Nifty 50 BeES</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹275.07</td><td class="nr"><span class="pos">+4.74%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.46%</span></td><td class="nr"><span class="pos">+2.06%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +1.19%</span></td><td class="nr"><span class="badge-ob">0.149</span></td><td class="nr"><span class="badge-os">0.07 Lo-β</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -21.4%</span><br><span class="pos">5D +33.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[277.42999267578125, 277.04998779296875, 271.69000244140625, 272.760009765625, 275.07000732421875]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">BSLNIFTY</td><td style="font-size:10px;color:var(--txt2)">Aditya Birla SL Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹28.30</td><td class="nr"><span class="pos">+4.74%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.46%</span></td><td class="nr"><span class="pos">+1.69%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.82%</span></td><td class="nr"><span class="badge-ob">0.165</span></td><td class="nr"><span class="badge-os">0.09 Lo-β</span></td><td class="nr"><span class="badge-nt">56</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -66.7%</span><br><span class="neg">5D -48.3%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[28.59000015258789, 28.559999465942383, 28.010000228881836, 28.06999969482422, 28.299999237060547]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">SETFNIF50</td><td style="font-size:10px;color:var(--txt2)">SBI ETF Nifty 50</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹260.02</td><td class="nr"><span class="pos">+4.70%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.43%</span></td><td class="nr"><span class="pos">+1.72%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.85%</span></td><td class="nr"><span class="badge-ob">0.145</span></td><td class="nr"><span class="badge-os">0.07 Lo-β</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -10.8%</span><br><span class="neg">5D -21.3%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[262.239990234375, 261.9800109863281, 257.1000061035156, 257.8999938964844, 260.0199890136719]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">MID150BEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Nifty Midcap 150 BeES</td><td style="font-size:9px;color:var(--txt2)">NIFTYMIDCAP150.NS</td><td class="nr">₹239.58</td><td class="nr"><span class="pos">+5.99%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.31%</span></td><td class="nr"><span class="pos">+10.76%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -0.04%</span></td><td class="nr"><span class="badge-os">0.989</span></td><td class="nr"><span class="badge-nt">1.07</span></td><td class="nr"><span class="badge-nt">61</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +38.4%</span><br><span class="pos">5D +8.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[237.58999633789062, 237.05999755859375, 233.1199951171875, 236.3000030517578, 239.5800018310547]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">BANKETF</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹591.48</td><td class="nr"><span class="pos">+5.63%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.28%</span></td><td class="nr"><span class="pos">+4.99%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.79%</span></td><td class="nr"><span class="badge-ob">0.095</span></td><td class="nr"><span class="badge-os">0.05 Lo-β</span></td><td class="nr"><span class="badge-nt">59</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -32.4%</span><br><span class="pos">5D +10.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[594.02001953125, 593.1099853515625, 577.9000244140625, 583.6799926757812, 591.47998046875]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">HDFCNIFTY</td><td style="font-size:10px;color:var(--txt2)">HDFC Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹272.17</td><td class="nr"><span class="pos">+4.46%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.19%</span></td><td class="nr"><span class="pos">+1.08%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.20%</span></td><td class="nr"><span class="badge-os">0.986</span></td><td class="nr"><span class="badge-nt">0.89</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -32.3%</span><br><span class="pos">5D +45.0%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[274.4599914550781, 274.17999267578125, 269.0, 269.6400146484375, 272.1700134277344]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">BANKBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Bank BeES</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹600.17</td><td class="nr"><span class="pos">+5.43%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.09%</span></td><td class="nr"><span class="pos">+4.78%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.58%</span></td><td class="nr"><span class="badge-ob">0.114</span></td><td class="nr"><span class="badge-os">0.06 Lo-β</span></td><td class="nr"><span class="badge-nt">58</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -17.6%</span><br><span class="pos">5D +14.2%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[603.0399780273438, 603.4099731445312, 587.6699829101562, 592.5599975585938, 600.1699829101562]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">MIDCAPETF</td><td style="font-size:10px;color:var(--txt2)">Motilal Nifty Midcap 100</td><td style="font-size:9px;color:var(--txt2)">NIFTYMIDCAP150.NS</td><td class="nr">₹23.64</td><td class="nr"><span class="pos">+5.54%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -0.15%</span></td><td class="nr"><span class="pos">+10.73%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -0.07%</span></td><td class="nr"><span class="badge-os">0.993</span></td><td class="nr"><span class="badge-nt">1.08</span></td><td class="nr"><span class="badge-nt">60</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -6.2%</span><br><span class="neg">5D -25.7%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[23.489999771118164, 23.3799991607666, 23.020000457763672, 23.350000381469727, 23.639999389648438]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">MOM50</td><td style="font-size:10px;color:var(--txt2)">Motilal Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹252.77</td><td class="nr"><span class="pos">+3.39%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -0.88%</span></td><td class="nr"><span class="pos">+1.11%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +0.24%</span></td><td class="nr"><span class="badge-nt">0.884</span></td><td class="nr"><span class="badge-nt">0.72</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +210.2%</span><br><span class="pos">5D +25.3%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[254.60000610351562, 254.5399932861328, 249.60000610351562, 251.86000061035156, 252.77000427246094]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">UTIBANKETF</td><td style="font-size:10px;color:var(--txt2)">UTI Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹4,070.35</td><td class="nr"><span class="pos">+3.88%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -1.47%</span></td><td class="nr"><span class="pos">+9.03%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +4.83%</span></td><td class="nr"><span class="badge-ob">-0.163</span></td><td class="nr"><span class="badge-os">-0.23 Lo-β</span></td><td class="nr"><span class="badge-nt">57</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +15.4%</span><br><span class="pos">5D +52.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[4072.855690852586, 4081.363697809075, 4040.7384440441115, 4020.200812412644, 4070.3491034357685]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">ICICINIFTY</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹3,790.67</td><td class="nr"><span class="neg">-1.48%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -5.75%</span></td><td class="nr"><span class="neg">-0.20%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -1.08%</span></td><td class="nr"><span class="badge-ob">0.065</span></td><td class="nr"><span class="badge-os">0.08 Lo-β</span></td><td class="nr"><span class="badge-nt">39</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +138.4%</span><br><span class="neg">5D -35.6%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[4026.9077377038666, 4071.326152362439, 3994.38997328129, 3908.313569401732, 3790.6706575309177]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">UTINIFTETF</td><td style="font-size:10px;color:var(--txt2)">UTI Nifty 50 ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹412.95</td><td class="nr"><span class="neg">-2.42%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -6.69%</span></td><td class="nr"><span class="pos">+17.98%</span></td><td class="nr"><span class="pos" title="ETF outperforms benchmark">TD +17.10%</span></td><td class="nr"><span class="badge-ob">-0.055</span></td><td class="nr"><span class="badge-os">-0.24 Lo-β</span></td><td class="nr"><span class="badge-nt">39</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +51.5%</span><br><span class="pos">5D +9.1%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[439.44222816982113, 431.39470872170074, 428.5952500996111, 418.84626211469947, 412.94821248281863]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">SETFBANK</td><td style="font-size:10px;color:var(--txt2)">SBI ETF Nifty Bank</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹1,091.53</td><td class="nr"><span class="neg">-1.52%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -6.87%</span></td><td class="nr"><span class="neg">-1.27%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -5.48%</span></td><td class="nr"><span class="badge-ob">-0.012</span></td><td class="nr"><span class="badge-os">-0.23 Lo-β</span></td><td class="nr"><span class="badge-nt">48</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -67.9%</span><br><span class="pos">5D +23.7%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1108.060195767247, 1118.9926194626166, 1100.5827785838383, 1104.8945575048788, 1091.526849084159]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">KOTAKBKETF</td><td style="font-size:10px;color:var(--txt2)">Kotak Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹640.36</td><td class="nr"><span class="neg">-3.26%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -8.60%</span></td><td class="nr"><span class="neg">-8.62%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -12.83%</span></td><td class="nr"><span class="badge-ob">0.114</span></td><td class="nr"><span class="badge-os">0.17 Lo-β</span></td><td class="nr"><span class="badge-nt">44</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -32.1%</span><br><span class="neg">5D -28.8%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[621.7801384121103, 633.4999371647474, 624.4795228239476, 629.3314188478915, 640.3584018991013]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">KOTAKNIFTY</td><td style="font-size:10px;color:var(--txt2)">Kotak Nifty ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEI</td><td class="nr">₹1,753.41</td><td class="nr"><span class="neg">-5.29%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -9.56%</span></td><td class="nr"><span class="neg">-2.28%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -3.16%</span></td><td class="nr"><span class="badge-ob">-0.185</span></td><td class="nr"><span class="badge-os">-0.26 Lo-β</span></td><td class="nr"><span class="badge-nt">46</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +44.6%</span><br><span class="neg">5D -17.0%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1730.2888215490495, 1749.9766937912752, 1755.5431103973483, 1741.057773832472, 1753.4132672385238]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">MOM50BANK</td><td style="font-size:10px;color:var(--txt2)">Motilal Nifty Bank ETF</td><td style="font-size:9px;color:var(--txt2)">^NSEBANK</td><td class="nr">₹1,988.85</td><td class="nr"><span class="neg">-10.64%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -15.99%</span></td><td class="nr"><span class="neg">-19.47%</span></td><td class="nr"><span class="neg" title="ETF underperforms benchmark">TD -23.67%</span></td><td class="nr"><span class="badge-ob">-0.002</span></td><td class="nr"><span class="badge-os">-0.26 Lo-β</span></td><td class="nr"><span class="badge-nt">33</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -58.7%</span><br><span class="neg">5D -26.8%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[2129.7808864650638, 2044.0218464696482, 2076.445502853937, 1984.1306338372833, 1988.8456401496103]' data-col="#ef4444"></canvas></td></tr></tbody></table></div></div>
 
 <div class="subhead">▸ Factor / Smart Beta ETF Analysis — Momentum vs Quality vs Low-Vol vs Alpha</div>
 <div class="card"><div style="overflow-x:auto"><table>
@@ -3595,7 +3645,7 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
 </div>
 
 <div class="subhead">▸ Debt &amp; Liquid ETFs — Safe-Haven Flows &amp; Cash Equivalent Positioning</div>
-<div class="card"><div style="overflow-x:auto"><table><thead><tr><th>ETF</th><th>Name</th><th class="nr">NAV</th><th class="nr">1D%</th><th class="nr">1M%</th><th class="nr">3M%</th><th class="nr">1Y%</th><th class="nr">RSI</th><th class="nr">Supertrend</th><th class="nr">Vol Δ (1D/5D)</th><th>5D</th></tr></thead><tbody><tr><td class="tk">LTGILTBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Long Term Gilt ETF</td><td class="nr">₹29.98</td><td class="nr"><span class="pos">+0.13%</span></td><td class="nr"><span class="pos">+1.77%</span></td><td class="nr"><span class="pos">+2.95%</span></td><td class="nr"><span class="pos">+3.88%</span></td><td class="nr"><span class="badge-nt">68</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +47.9%</span><br><span class="neg">5D -25.7%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[29.979999542236328, 29.979999542236328, 29.850000381469727, 29.940000534057617, 29.979999542236328]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">GSEC10YEAR</td><td style="font-size:10px;color:var(--txt2)">Nippon Nifty 10Y G-Sec ETF</td><td class="nr">₹30.40</td><td class="nr"><span class="neg">-0.10%</span></td><td class="nr"><span class="pos">+0.60%</span></td><td class="nr"><span class="pos">+2.88%</span></td><td class="nr"><span class="pos">+3.86%</span></td><td class="nr"><span class="badge-nt">54</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +113.2%</span><br><span class="neg">5D -5.2%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[30.5, 30.809999465942383, 30.389999389648438, 30.43000030517578, 30.399999618530273]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">GSEC5IETF</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Nifty 5Y G-Sec ETF</td><td class="nr">₹66.14</td><td class="nr"><span class="pos">+0.35%</span></td><td class="nr"><span class="pos">+1.30%</span></td><td class="nr"><span class="pos">+2.88%</span></td><td class="nr"><span class="pos">+5.49%</span></td><td class="nr"><span class="badge-nt">59</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +5.8%</span><br><span class="neg">5D -53.0%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[66.01000213623047, 66.0199966430664, 66.01000213623047, 65.91000366210938, 66.13999938964844]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">LIQUIDCASE</td><td style="font-size:10px;color:var(--txt2)">Nippon Liquid Case ETF</td><td class="nr">₹114.96</td><td class="nr"><span class="pos">+0.04%</span></td><td class="nr"><span class="pos">+0.42%</span></td><td class="nr"><span class="pos">+1.20%</span></td><td class="nr"><span class="pos">+5.13%</span></td><td class="nr"><span class="badge-ob">100</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +15.2%</span><br><span class="neg">5D -30.4%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[114.86000061035156, 114.87000274658203, 114.88999938964844, 114.91000366210938, 114.95999908447266]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">LIQUIDSBI</td><td style="font-size:10px;color:var(--txt2)">SBI Liquid ETF</td><td class="nr">₹999.99</td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="pos">+0.39%</span></td><td class="nr"><span class="pos">+0.39%</span></td><td class="nr"><span class="pos">+3.50%</span></td><td class="nr"><span class="badge-ob">99</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -56.7%</span><br><span class="neg">5D -35.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[999.989990234375, 999.989990234375, 999.989990234375, 999.989990234375, 999.989990234375]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">LIQUIDIETF</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Liquid ETF (Alt)</td><td class="nr">₹999.99</td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="badge-nt">50</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -22.6%</span><br><span class="neg">5D -15.7%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1000.0, 999.989990234375, 999.989990234375, 999.989990234375, 999.989990234375]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">LIQUIDBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Liquid BeES</td><td class="nr">₹1,000.00</td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="pos">+0.99%</span></td><td class="nr"><span class="badge-nt">53</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +11.0%</span><br><span class="neg">5D -24.8%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[999.989990234375, 1000.0, 1000.0, 999.989990234375, 1000.0]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">ICICILIQ</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Liquid ETF</td><td class="nr">₹1,777.07</td><td class="nr"><span class="neg">-0.85%</span></td><td class="nr"><span class="pos">+1.67%</span></td><td class="nr"><span class="neg">-3.09%</span></td><td class="nr"><span class="pos">+1.05%</span></td><td class="nr"><span class="badge-nt">48</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +9.1%</span><br><span class="pos">5D +14.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1826.1485861676663, 1843.6243443558897, 1819.465254460174, 1792.2529281379766, 1777.069342521597]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">BBETF0632</td><td style="font-size:10px;color:var(--txt2)">Bharat Bond ETF April 2032</td><td class="nr">₹591.12</td><td class="nr"><span class="pos">+1.45%</span></td><td class="nr"><span class="pos">+13.25%</span></td><td class="nr"><span class="neg">-4.25%</span></td><td class="nr"><span class="neg">-3.47%</span></td><td class="nr"><span class="badge-nt">62</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +40.8%</span><br><span class="neg">5D -39.6%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[551.897843655563, 567.0487780879764, 579.4540821641122, 582.6528592544871, 591.1209449233728]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">EBBETF0135</td><td style="font-size:10px;color:var(--txt2)">Edelweiss Bharat Bond ETF 2027</td><td class="nr">₹794.08</td><td class="nr"><span class="pos">+0.05%</span></td><td class="nr"><span class="pos">+0.53%</span></td><td class="nr"><span class="neg">-5.84%</span></td><td class="nr"><span class="neg">-3.49%</span></td><td class="nr"><span class="badge-nt">48</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -10.0%</span><br><span class="neg">5D -24.4%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[788.1298034794406, 769.3961766738319, 767.6518407932193, 793.681031056764, 794.0824753194729]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">BBETF0633</td><td style="font-size:10px;color:var(--txt2)">Bharat Bond ETF April 2033</td><td class="nr">₹1,896.24</td><td class="nr"><span class="neg">-0.67%</span></td><td class="nr"><span class="neg">-7.20%</span></td><td class="nr"><span class="neg">-20.00%</span></td><td class="nr"><span class="neg">-29.95%</span></td><td class="nr"><span class="badge-nt">33</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -20.5%</span><br><span class="neg">5D -8.9%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1943.4885650945803, 1931.391394866209, 1887.7247664399395, 1908.9677108723697, 1896.243460505628]' data-col="#ef4444"></canvas></td></tr></tbody></table></div></div>
+<div class="card"><div style="overflow-x:auto"><table><thead><tr><th>ETF</th><th>Name</th><th class="nr">NAV</th><th class="nr">1D%</th><th class="nr">1M%</th><th class="nr">3M%</th><th class="nr">1Y%</th><th class="nr">RSI</th><th class="nr">Supertrend</th><th class="nr">Vol Δ (1D/5D)</th><th>5D</th></tr></thead><tbody><tr><td class="tk">LTGILTBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Long Term Gilt ETF</td><td class="nr">₹29.98</td><td class="nr"><span class="pos">+0.13%</span></td><td class="nr"><span class="pos">+1.77%</span></td><td class="nr"><span class="pos">+2.95%</span></td><td class="nr"><span class="pos">+3.88%</span></td><td class="nr"><span class="badge-nt">68</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +47.9%</span><br><span class="neg">5D -25.7%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[29.979999542236328, 29.979999542236328, 29.850000381469727, 29.940000534057617, 29.979999542236328]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">GSEC10YEAR</td><td style="font-size:10px;color:var(--txt2)">Nippon Nifty 10Y G-Sec ETF</td><td class="nr">₹30.40</td><td class="nr"><span class="neg">-0.10%</span></td><td class="nr"><span class="pos">+0.60%</span></td><td class="nr"><span class="pos">+2.88%</span></td><td class="nr"><span class="pos">+3.86%</span></td><td class="nr"><span class="badge-nt">54</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +113.2%</span><br><span class="neg">5D -5.2%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[30.5, 30.809999465942383, 30.389999389648438, 30.43000030517578, 30.399999618530273]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">GSEC5IETF</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Nifty 5Y G-Sec ETF</td><td class="nr">₹66.14</td><td class="nr"><span class="pos">+0.35%</span></td><td class="nr"><span class="pos">+1.30%</span></td><td class="nr"><span class="pos">+2.88%</span></td><td class="nr"><span class="pos">+5.49%</span></td><td class="nr"><span class="badge-nt">59</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +5.8%</span><br><span class="neg">5D -53.0%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[66.01000213623047, 66.0199966430664, 66.01000213623047, 65.91000366210938, 66.13999938964844]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">LIQUIDCASE</td><td style="font-size:10px;color:var(--txt2)">Nippon Liquid Case ETF</td><td class="nr">₹114.96</td><td class="nr"><span class="pos">+0.04%</span></td><td class="nr"><span class="pos">+0.42%</span></td><td class="nr"><span class="pos">+1.20%</span></td><td class="nr"><span class="pos">+5.13%</span></td><td class="nr"><span class="badge-ob">100</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +15.2%</span><br><span class="neg">5D -30.4%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[114.86000061035156, 114.87000274658203, 114.88999938964844, 114.91000366210938, 114.95999908447266]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">LIQUIDSBI</td><td style="font-size:10px;color:var(--txt2)">SBI Liquid ETF</td><td class="nr">₹999.99</td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="pos">+0.39%</span></td><td class="nr"><span class="pos">+0.39%</span></td><td class="nr"><span class="pos">+3.50%</span></td><td class="nr"><span class="badge-ob">99</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -56.7%</span><br><span class="neg">5D -35.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[999.989990234375, 999.989990234375, 999.989990234375, 999.989990234375, 999.989990234375]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">LIQUIDBEES</td><td style="font-size:10px;color:var(--txt2)">Nippon Liquid BeES</td><td class="nr">₹1,000.00</td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="pos">+0.99%</span></td><td class="nr"><span class="badge-nt">53</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +11.0%</span><br><span class="neg">5D -24.8%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[999.989990234375, 1000.0, 1000.0, 999.989990234375, 1000.0]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">LIQUIDIETF</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Liquid ETF (Alt)</td><td class="nr">₹999.99</td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="nt">0.00%</span></td><td class="nr"><span class="badge-nt">50</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -22.6%</span><br><span class="neg">5D -15.7%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1000.0, 999.989990234375, 999.989990234375, 999.989990234375, 999.989990234375]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">ICICILIQ</td><td style="font-size:10px;color:var(--txt2)">ICICI Pru Liquid ETF</td><td class="nr">₹1,777.07</td><td class="nr"><span class="neg">-0.85%</span></td><td class="nr"><span class="pos">+1.67%</span></td><td class="nr"><span class="neg">-3.09%</span></td><td class="nr"><span class="pos">+1.05%</span></td><td class="nr"><span class="badge-nt">48</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +9.1%</span><br><span class="pos">5D +14.5%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1826.1485861676663, 1843.6243443558897, 1819.465254460174, 1792.2529281379766, 1777.069342521597]' data-col="#ef4444"></canvas></td></tr><tr><td class="tk">BBETF0632</td><td style="font-size:10px;color:var(--txt2)">Bharat Bond ETF April 2032</td><td class="nr">₹591.12</td><td class="nr"><span class="pos">+1.45%</span></td><td class="nr"><span class="pos">+13.25%</span></td><td class="nr"><span class="neg">-4.25%</span></td><td class="nr"><span class="neg">-3.47%</span></td><td class="nr"><span class="badge-nt">62</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="pos">1D +40.8%</span><br><span class="neg">5D -39.6%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[551.897843655563, 567.0487780879764, 579.4540821641122, 582.6528592544871, 591.1209449233728]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">EBBETF0135</td><td style="font-size:10px;color:var(--txt2)">Edelweiss Bharat Bond ETF 2027</td><td class="nr">₹794.08</td><td class="nr"><span class="pos">+0.05%</span></td><td class="nr"><span class="pos">+0.53%</span></td><td class="nr"><span class="neg">-5.84%</span></td><td class="nr"><span class="neg">-3.49%</span></td><td class="nr"><span class="badge-nt">48</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -10.0%</span><br><span class="neg">5D -24.4%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[788.1298034794406, 769.3961766738319, 767.6518407932193, 793.681031056764, 794.0824753194729]' data-col="#10b981"></canvas></td></tr><tr><td class="tk">BBETF0633</td><td style="font-size:10px;color:var(--txt2)">Bharat Bond ETF April 2033</td><td class="nr">₹1,896.24</td><td class="nr"><span class="neg">-0.67%</span></td><td class="nr"><span class="neg">-7.20%</span></td><td class="nr"><span class="neg">-20.00%</span></td><td class="nr"><span class="neg">-29.95%</span></td><td class="nr"><span class="badge-nt">33</span></td><td class="nr"><span class="badge-os">↑ Bullish</span></td><td class="nr"><span class="vol-chg-cell"><span class="neg">1D -20.5%</span><br><span class="neg">5D -8.9%</span></span></td><td><canvas class="sp" width="80" height="26" data-c='[1943.4885650945803, 1931.391394866209, 1887.7247664399395, 1908.9677108723697, 1896.243460505628]' data-col="#ef4444"></canvas></td></tr></tbody></table></div></div>
 
 <div class="subhead">▸ ETF Risk Scanner — Volatility, Beta &amp; Risk-Adjusted Returns</div>
 <div class="card"><div style="overflow-x:auto"><table>
@@ -4343,22 +4393,35 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
 <div class="stats-strip">
   <div class="stat-box cyan"><div class="stat-val">754</div><div class="stat-lbl">Universe (N500 ∪ Microcap)</div><div class="stat-sub">Unique tickers targeted</div></div>
   <div class="stat-box blue"><div class="stat-val">754</div><div class="stat-lbl">Successfully Analyzed</div><div class="stat-sub">0 short-history · 0 errors</div></div>
-  <div class="stat-box amber"><div class="stat-val" style="color:var(--amber)">173</div><div class="stat-lbl">Live BUY Setups Today</div><div class="stat-sub">Setup Score ≥60/100</div></div>
-  <div class="stat-box green"><div class="stat-val" style="color:var(--green)">39</div><div class="stat-lbl">Backtest-Qualified</div><div class="stat-sub">≥5 trades · ≥45% win-rate</div></div>
+  <div class="stat-box amber"><div class="stat-val" style="color:var(--amber)">168</div><div class="stat-lbl">Live BUY Setups Today</div><div class="stat-sub">Setup Score ≥60/100</div></div>
+  <div class="stat-box green"><div class="stat-val" style="color:var(--green)">38</div><div class="stat-lbl">Backtest-Qualified</div><div class="stat-sub">≥5 trades · ≥45% win-rate</div></div>
   <div class="stat-box purple"><div class="stat-val">5</div><div class="stat-lbl">Today's Top Picks</div><div class="stat-sub">Ranked by Confidence</div></div>
-  <div class="stat-box blue"><div class="stat-val">55</div><div class="stat-lbl">Avg Trades / Stock (5Y)</div><div class="stat-sub">Across analyzed universe</div></div>
-  <div class="stat-box cyan"><div class="stat-val">38%</div><div class="stat-lbl">Avg Win Rate (Universe)</div><div class="stat-sub">5Y backtest mean</div></div>
-  <div class="stat-box amber"><div class="stat-val">85%</div><div class="stat-lbl">Avg Confidence (Top Picks)</div><div class="stat-sub">Neural-Trail blend</div></div>
+  <div class="stat-box blue"><div class="stat-val">56</div><div class="stat-lbl">Avg Trades / Stock (5Y)</div><div class="stat-sub">Across analyzed universe</div></div>
+  <div class="stat-box cyan"><div class="stat-val">39%</div><div class="stat-lbl">Avg Win Rate (Universe)</div><div class="stat-sub">5Y backtest mean</div></div>
+  <div class="stat-box amber"><div class="stat-val">88%</div><div class="stat-lbl">Avg Confidence (Top Picks)</div><div class="stat-sub">Neural-Trail blend</div></div>
   <div class="stat-box purple"><div class="stat-val">6.7d</div><div class="stat-lbl">Avg Realised Hold</div><div class="stat-sub">Backtested trades, all stocks</div></div>
-  <div class="stat-box cyan"><div class="stat-val" style="font-size:16px">54s</div><div class="stat-lbl">Scan + 5Y Backtest Time</div><div class="stat-sub">Live 577 · Synthetic 177</div></div>
+  <div class="stat-box cyan"><div class="stat-val" style="font-size:16px">53s</div><div class="stat-lbl">Scan + 5Y Backtest Time</div><div class="stat-sub">Live 555 · Synthetic 199</div></div>
 </div>
 
+<div class="sec"><span class="dot dot-amber"></span>Sector Momentum (5-Day) <span style="margin-left:auto;font-size:9px;color:var(--txt2);font-family:var(--font-mono)">Cross-sectional average across this scan's analysed peers</span></div>
+<div class="card" style="padding:14px 16px;margin-bottom:14px">
+  <div style="display:flex;gap:28px;flex-wrap:wrap">
+    <div style="flex:1;min-width:240px">
+      <div style="font-size:10px;color:var(--green);font-weight:700;margin-bottom:4px;letter-spacing:.05em">▲ STRONGEST SECTORS</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)"><span style="font-size:10.5px">Real Estate</span><span class="pos" style="font-weight:700">+4.7%<span style="color:var(--txt2);font-weight:400;font-size:9px"> &nbsp;(15 stocks)</span></span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)"><span style="font-size:10.5px">Retail & E-Commerce</span><span class="pos" style="font-weight:700">+3.3%<span style="color:var(--txt2);font-weight:400;font-size:9px"> &nbsp;(11 stocks)</span></span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)"><span style="font-size:10.5px">Fintech & New Age</span><span class="pos" style="font-weight:700">+2.7%<span style="color:var(--txt2);font-weight:400;font-size:9px"> &nbsp;(12 stocks)</span></span></div>
+    </div>
+    <div style="flex:1;min-width:240px">
+      <div style="font-size:10px;color:var(--red);font-weight:700;margin-bottom:4px;letter-spacing:.05em">▼ WEAKEST SECTORS</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)"><span style="font-size:10.5px">Paint & Décor</span><span class="neg" style="font-weight:700">-3.3%<span style="color:var(--txt2);font-weight:400;font-size:9px"> &nbsp;(8 stocks)</span></span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)"><span style="font-size:10.5px">Agri & Fertilizers</span><span class="neg" style="font-weight:700">-2.7%<span style="color:var(--txt2);font-weight:400;font-size:9px"> &nbsp;(14 stocks)</span></span></div><div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)"><span style="font-size:10.5px">Textiles & Apparel</span><span class="neg" style="font-weight:700">-1.8%<span style="color:var(--txt2);font-weight:400;font-size:9px"> &nbsp;(10 stocks)</span></span></div>
+    </div>
+  </div>
+</div>
 <div class="sec"><span class="dot dot-green"></span>Today's Top Swing BUY Opportunities <span style="margin-left:auto;font-size:9px;color:var(--txt2);font-family:var(--font-mono)">Ranked by Confidence Level · Max 5 names</span></div>
 <div class="card" style="overflow-x:auto"><table><thead><tr>
   <th>#</th><th>Stock Name</th><th>Buy/Sell</th><th class="nr">Date</th>
   <th class="nr">Entry (Last Close)</th><th class="nr">Target</th><th class="nr">Stoploss</th>
   <th class="nr">R:R</th><th class="nr">Total Trades (5Y)</th><th class="nr">Profitable Trades %</th>
-  <th class="nr">Confidence Level</th><th>5D Vol Trail</th><th>Key Signals</th>
+  <th class="nr">Confidence Level</th><th class="nr">5D Return (vs Sector)</th><th>5D Vol Trail</th><th>Key Signals</th>
 </tr></thead><tbody><tr>
   <td class="rank">1</td>
   <td class="tk">TASTYBITE <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
@@ -4370,7 +4433,8 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
   <td class="nr">72</td>
   <td class="nr"><span class="badge-nt">50%</span></td>
-  <td class="nr"><span class="badge-os">86% · High</span></td>
+  <td class="nr"><span class="badge-os">89% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+5.6%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="FMCG & Consumer — average 5D return across 25 peers analysed in this scan">sector +1.5%&nbsp; <span class="pos" style="font-weight:700">▲ +4.1pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="17.6" x2="95" y2="17.6" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="23.0" width="16.4" height="3.0" rx="1" fill="#22d3ee"/><rect x="20.4" y="15.3" width="16.4" height="10.7" rx="1" fill="#22d3ee"/><rect x="38.8" y="14.9" width="16.4" height="11.1" rx="1" fill="#22d3ee"/><rect x="57.2" y="25.0" width="16.4" height="1.0" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
   <td class="sigs"><span class="pill-b">Bullish Engulfing</span><span class="pill-b">Bullish Marubozu</span><span class="pill-b">HH-HL Structure</span></td>
 </tr><tr>
@@ -4384,25 +4448,12 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
   <td class="nr">64</td>
   <td class="nr"><span class="badge-nt">58%</span></td>
-  <td class="nr"><span class="badge-os">86% · High</span></td>
+  <td class="nr"><span class="badge-os">89% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+3.0%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Defence & PSU — average 5D return across 21 peers analysed in this scan">sector -1.8%&nbsp; <span class="pos" style="font-weight:700">▲ +4.8pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="9.7" x2="95" y2="9.7" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="10.6" width="16.4" height="15.4" rx="1" fill="#22d3ee"/><rect x="20.4" y="4.0" width="16.4" height="22.0" rx="1" fill="#22d3ee"/><rect x="38.8" y="10.4" width="16.4" height="15.6" rx="1" fill="#22d3ee"/><rect x="57.2" y="15.2" width="16.4" height="10.8" rx="1" fill="#22d3ee"/><rect x="75.6" y="11.9" width="16.4" height="14.1" rx="1" fill="#22d3ee"/></svg></td>
   <td class="sigs"><span class="pill-b">Bullish Marubozu</span><span class="pill-b">Inside Bar Breakout</span><span class="pill-b">HH-HL Structure</span></td>
 </tr><tr>
   <td class="rank">3</td>
-  <td class="tk">HINDCOPPER <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹498.65</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹506.57</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹496.01</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">60</td>
-  <td class="nr"><span class="badge-nt">50%</span></td>
-  <td class="nr"><span class="badge-os">86% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="15.6" x2="95" y2="15.6" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="20.5" width="16.4" height="5.5" rx="1" fill="#22d3ee"/><rect x="20.4" y="18.7" width="16.4" height="7.3" rx="1" fill="#22d3ee"/><rect x="38.8" y="16.1" width="16.4" height="9.9" rx="1" fill="#22d3ee"/><rect x="57.2" y="21.0" width="16.4" height="5.0" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">Gap-Up on Volume</span></td>
-</tr><tr>
-  <td class="rank">4</td>
   <td class="tk">INDIANB <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
   <td><span class="badge-os">BUY</span></td>
   <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
@@ -4412,11 +4463,12 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
   <td class="nr">78</td>
   <td class="nr"><span class="badge-nt">49%</span></td>
-  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr"><span class="badge-os">88% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+9.0%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Microcap / Other — average 5D return across 331 peers analysed in this scan">sector +0.1%&nbsp; <span class="pos" style="font-weight:700">▲ +8.9pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="22.6" x2="95" y2="22.6" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="23.8" width="16.4" height="2.2" rx="1" fill="#22d3ee"/><rect x="20.4" y="20.0" width="16.4" height="6.0" rx="1" fill="#22d3ee"/><rect x="38.8" y="20.6" width="16.4" height="5.4" rx="1" fill="#22d3ee"/><rect x="57.2" y="23.7" width="16.4" height="2.3" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
   <td class="sigs"><span class="pill-b">Bullish Marubozu</span><span class="pill-b">Inside Bar Breakout</span></td>
 </tr><tr>
-  <td class="rank">5</td>
+  <td class="rank">4</td>
   <td class="tk">DIXON <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
   <td><span class="badge-os">BUY</span></td>
   <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
@@ -4426,9 +4478,25 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
   <td class="nr">55</td>
   <td class="nr"><span class="badge-nt">56%</span></td>
-  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr"><span class="badge-os">88% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+7.7%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Consumer Durables — average 5D return across 11 peers analysed in this scan">sector +1.4%&nbsp; <span class="pos" style="font-weight:700">▲ +6.4pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="17.9" x2="95" y2="17.9" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="9.2" width="16.4" height="16.8" rx="1" fill="#f59e0b"/><rect x="20.4" y="15.7" width="16.4" height="10.3" rx="1" fill="#22d3ee"/><rect x="38.8" y="18.9" width="16.4" height="7.1" rx="1" fill="#22d3ee"/><rect x="57.2" y="15.2" width="16.4" height="10.8" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
   <td class="sigs"><span class="pill-b">HH-HL Structure</span><span class="pill-b">Gap-Up on Volume</span></td>
+</tr><tr>
+  <td class="rank">5</td>
+  <td class="tk">HINDCOPPER <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹498.65</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹506.57</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹496.01</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">61</td>
+  <td class="nr"><span class="badge-nt">49%</span></td>
+  <td class="nr"><span class="badge-os">85% · High</span></td>
+  <td class="nr"><span class="neg" style="font-weight:700;font-size:11.5px">-0.1%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Metals & Mining — average 5D return across 19 peers analysed in this scan">sector +0.5%&nbsp; <span class="neg" style="font-weight:700">▼ -0.6pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="15.6" x2="95" y2="15.6" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="20.5" width="16.4" height="5.5" rx="1" fill="#22d3ee"/><rect x="20.4" y="18.7" width="16.4" height="7.3" rx="1" fill="#22d3ee"/><rect x="38.8" y="16.1" width="16.4" height="9.9" rx="1" fill="#22d3ee"/><rect x="57.2" y="21.0" width="16.4" height="5.0" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">Gap-Up on Volume</span></td>
 </tr></tbody></table></div>
 
 <div class="data-note" style="margin-top:14px">
@@ -4450,8 +4518,11 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
     weighted-and-sigmoid-squashed score (technically a 1-layer neural/logistic scoring function — <u>not</u> a
     deep-trained black box) blending today's Setup Score, the backtest win-rate after a Wilson-score shrinkage for
     sample size (so 3 lucky trades can't outrank 40 consistent ones), the raw trade count, whether the nearest
-    resistance leaves realistic room for the fixed 3R target, live RVOL confirmation, and today's price-action
-    strength. Weights are fixed and fully disclosed: <code style="color:var(--cyan)">bias=-3.0, setup=+2.2, winrate=+2.0, sample=+1.0, rr_realism=+1.0, volume=+0.8, pattern=+0.6</code>. &nbsp;|&nbsp;
+    resistance leaves realistic room for the fixed 3R target, live RVOL confirmation, today's price-action
+    strength, and the stock's 5-day return <em>relative to its own sector's average</em> (a stock beating its
+    sector by ≥5pp over 5 days gets full credit here; one lagging by ≥5pp gets none — rewarding names
+    showing genuine leadership within their group, not just riding a sector-wide wave). Weights are fixed and
+    fully disclosed: <code style="color:var(--cyan)">bias=-3.4, setup=+2.2, winrate=+2.0, sample=+1.0, rr_realism=+1.0, volume=+0.8, pattern=+0.6, relstrength=+0.7</code>. &nbsp;|&nbsp;
     <strong style="color:var(--white)">Reading the win-rate:</strong> at a fixed 1:3 risk-reward, the
     mathematical break-even win-rate is only <strong style="color:var(--white)">25%</strong>
     (win% × 3R = loss% × 1R). A stock showing a 45–60% historical win-rate here is not a
@@ -4465,7 +4536,7 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <th>#</th><th>Stock Name</th><th>Buy/Sell</th><th class="nr">Date</th>
   <th class="nr">Entry (Last Close)</th><th class="nr">Target</th><th class="nr">Stoploss</th>
   <th class="nr">R:R</th><th class="nr">Total Trades (5Y)</th><th class="nr">Profitable Trades %</th>
-  <th class="nr">Confidence Level</th><th>5D Vol Trail</th><th>Key Signals</th>
+  <th class="nr">Confidence Level</th><th class="nr">5D Return (vs Sector)</th><th>5D Vol Trail</th><th>Key Signals</th>
 </tr></thead><tbody><tr>
   <td class="rank">1</td>
   <td class="tk">BRIGADE <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
@@ -4475,9 +4546,10 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="color:#6ee7b7;font-weight:700">₹584.32</td>
   <td class="nr" style="color:#fca5a5;font-weight:700">₹571.36</td>
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">65</td>
-  <td class="nr"><span class="badge-ob">43%</span></td>
-  <td class="nr"><span class="badge-os">88% · High</span></td>
+  <td class="nr">66</td>
+  <td class="nr"><span class="badge-ob">44%</span></td>
+  <td class="nr"><span class="badge-os">92% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+11.8%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Real Estate — average 5D return across 15 peers analysed in this scan">sector +4.7%&nbsp; <span class="pos" style="font-weight:700">▲ +7.1pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="16.7" x2="95" y2="16.7" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/><rect x="20.4" y="16.2" width="16.4" height="9.8" rx="1" fill="#22d3ee"/><rect x="38.8" y="19.2" width="16.4" height="6.8" rx="1" fill="#22d3ee"/><rect x="57.2" y="9.2" width="16.4" height="16.8" rx="1" fill="#22d3ee"/><rect x="75.6" y="6.6" width="16.4" height="19.4" rx="1" fill="#f59e0b"/></svg></td>
   <td class="sigs"><span class="pill-b">Bullish Marubozu</span><span class="pill-b">HH-HL Structure</span></td>
 </tr><tr>
@@ -4491,25 +4563,12 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
   <td class="nr">80</td>
   <td class="nr"><span class="badge-ob">39%</span></td>
-  <td class="nr"><span class="badge-os">88% · High</span></td>
+  <td class="nr"><span class="badge-os">91% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+8.7%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="FMCG & Consumer — average 5D return across 25 peers analysed in this scan">sector +1.5%&nbsp; <span class="pos" style="font-weight:700">▲ +7.2pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="10.6" x2="95" y2="10.6" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="16.1" width="16.4" height="9.9" rx="1" fill="#22d3ee"/><rect x="20.4" y="23.1" width="16.4" height="2.9" rx="1" fill="#22d3ee"/><rect x="38.8" y="8.4" width="16.4" height="17.6" rx="1" fill="#22d3ee"/><rect x="57.2" y="14.3" width="16.4" height="11.7" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#22d3ee"/></svg></td>
   <td class="sigs"><span class="pill-b">Bullish Engulfing</span><span class="pill-b">Bullish Marubozu</span><span class="pill-b">HH-HL Structure</span></td>
 </tr><tr>
   <td class="rank">3</td>
-  <td class="tk">UBL <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹4,569.86</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹6,293.85</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹3,995.20</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">56</td>
-  <td class="nr"><span class="badge-ob">41%</span></td>
-  <td class="nr"><span class="badge-os">85% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="17.1" x2="95" y2="17.1" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="16.7" width="16.4" height="9.3" rx="1" fill="#22d3ee"/><rect x="20.4" y="24.0" width="16.4" height="2.0" rx="1" fill="#22d3ee"/><rect x="38.8" y="13.4" width="16.4" height="12.6" rx="1" fill="#22d3ee"/><rect x="57.2" y="19.7" width="16.4" height="6.3" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">Bullish Engulfing</span><span class="pill-b">Bullish Marubozu</span><span class="pill-b">HH-HL Structure</span></td>
-</tr><tr>
-  <td class="rank">4</td>
   <td class="tk">J&KBANK <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
   <td><span class="badge-os">BUY</span></td>
   <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
@@ -4517,27 +4576,14 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="color:#6ee7b7;font-weight:700">₹319.91</td>
   <td class="nr" style="color:#fca5a5;font-weight:700">₹150.23</td>
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">71</td>
-  <td class="nr"><span class="badge-ob">41%</span></td>
-  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr">72</td>
+  <td class="nr"><span class="badge-ob">40%</span></td>
+  <td class="nr"><span class="badge-os">88% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+16.6%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Banking & Finance — average 5D return across 50 peers analysed in this scan">sector +1.3%&nbsp; <span class="pos" style="font-weight:700">▲ +15.3pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="22.3" x2="95" y2="22.3" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="24.1" width="16.4" height="1.9" rx="1" fill="#22d3ee"/><rect x="20.4" y="23.1" width="16.4" height="2.9" rx="1" fill="#22d3ee"/><rect x="38.8" y="15.8" width="16.4" height="10.2" rx="1" fill="#f59e0b"/><rect x="57.2" y="21.9" width="16.4" height="4.1" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
   <td class="sigs"><span class="pill-b">Inside Bar Breakout</span><span class="pill-b">HH-HL Structure</span></td>
 </tr><tr>
-  <td class="rank">5</td>
-  <td class="tk">ELECON <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-nt">WATCH</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹510.55</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹515.17</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹509.01</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">73</td>
-  <td class="nr"><span class="badge-ob">38%</span></td>
-  <td class="nr"><span class="badge-os">83% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="22.7" x2="95" y2="22.7" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="24.6" width="16.4" height="1.4" rx="1" fill="#22d3ee"/><rect x="20.4" y="22.5" width="16.4" height="3.5" rx="1" fill="#22d3ee"/><rect x="38.8" y="24.3" width="16.4" height="1.7" rx="1" fill="#22d3ee"/><rect x="57.2" y="23.4" width="16.4" height="2.6" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">Hammer</span></td>
-</tr><tr>
-  <td class="rank">6</td>
+  <td class="rank">4</td>
   <td class="tk">ICICIPRULI</td>
   <td><span class="badge-nt">WATCH</span></td>
   <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
@@ -4545,55 +4591,14 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="color:#6ee7b7;font-weight:700">₹516.80</td>
   <td class="nr" style="color:#fca5a5;font-weight:700">₹508.20</td>
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">46</td>
-  <td class="nr"><span class="badge-ob">39%</span></td>
-  <td class="nr"><span class="badge-os">82% · High</span></td>
+  <td class="nr">47</td>
+  <td class="nr"><span class="badge-ob">40%</span></td>
+  <td class="nr"><span class="badge-os">86% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+5.2%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Banking & Finance — average 5D return across 50 peers analysed in this scan">sector +1.3%&nbsp; <span class="pos" style="font-weight:700">▲ +3.9pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="13.8" x2="95" y2="13.8" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="18.3" width="16.4" height="7.7" rx="1" fill="#22d3ee"/><rect x="20.4" y="15.7" width="16.4" height="10.3" rx="1" fill="#22d3ee"/><rect x="38.8" y="12.6" width="16.4" height="13.4" rx="1" fill="#22d3ee"/><rect x="57.2" y="21.7" width="16.4" height="4.3" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#22d3ee"/></svg></td>
   <td class="sigs"><span class="pill-b">Inside Bar Breakout</span><span class="pill-b">HH-HL Structure</span></td>
 </tr><tr>
-  <td class="rank">7</td>
-  <td class="tk">MTAR <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹3,798.14</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹4,187.32</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹3,668.41</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">60</td>
-  <td class="nr"><span class="badge-ob">43%</span></td>
-  <td class="nr"><span class="badge-os">82% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="15.4" x2="95" y2="15.4" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="24.8" width="16.4" height="1.2" rx="1" fill="#22d3ee"/><rect x="20.4" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/><rect x="38.8" y="21.0" width="16.4" height="5.0" rx="1" fill="#22d3ee"/><rect x="57.2" y="19.9" width="16.4" height="6.1" rx="1" fill="#22d3ee"/><rect x="75.6" y="6.8" width="16.4" height="19.2" rx="1" fill="#22d3ee"/></svg></td>
-  <td class="sigs"><span class="pill-b">Bullish Engulfing</span><span class="pill-b">Bullish Marubozu</span><span class="pill-b">HH-HL Structure</span></td>
-</tr><tr>
-  <td class="rank">8</td>
-  <td class="tk">SOBHA <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹1,511.30</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹1,916.90</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹1,376.10</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">57</td>
-  <td class="nr"><span class="badge-nt">46%</span></td>
-  <td class="nr"><span class="badge-os">82% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="20.9" x2="95" y2="20.9" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/><rect x="20.4" y="20.4" width="16.4" height="5.6" rx="1" fill="#22d3ee"/><rect x="38.8" y="14.8" width="16.4" height="11.2" rx="1" fill="#f59e0b"/><rect x="57.2" y="21.5" width="16.4" height="4.5" rx="1" fill="#22d3ee"/><rect x="75.6" y="13.3" width="16.4" height="12.7" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">Inside Bar Breakout</span><span class="pill-b">HH-HL Structure</span></td>
-</tr><tr>
-  <td class="rank">9</td>
-  <td class="tk">CENTURYPLY <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹790.00</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹913.75</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹748.75</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">64</td>
-  <td class="nr"><span class="badge-ob">36%</span></td>
-  <td class="nr"><span class="badge-os">81% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="19.3" x2="95" y2="19.3" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="20.0" width="16.4" height="6.0" rx="1" fill="#22d3ee"/><rect x="20.4" y="20.6" width="16.4" height="5.4" rx="1" fill="#22d3ee"/><rect x="38.8" y="20.4" width="16.4" height="5.6" rx="1" fill="#22d3ee"/><rect x="57.2" y="23.0" width="16.4" height="3.0" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
-</tr><tr>
-  <td class="rank">10</td>
+  <td class="rank">5</td>
   <td class="tk">SUZLON</td>
   <td><span class="badge-nt">WATCH</span></td>
   <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
@@ -4603,81 +4608,27 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
   <td class="nr">64</td>
   <td class="nr"><span class="badge-nt">48%</span></td>
-  <td class="nr"><span class="badge-os">81% · High</span></td>
+  <td class="nr"><span class="badge-os">86% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+8.0%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Power & Renewables — average 5D return across 17 peers analysed in this scan">sector -0.1%&nbsp; <span class="pos" style="font-weight:700">▲ +8.1pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="10.1" x2="95" y2="10.1" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="23.4" width="16.4" height="2.6" rx="1" fill="#22d3ee"/><rect x="20.4" y="4.0" width="16.4" height="22.0" rx="1" fill="#22d3ee"/><rect x="38.8" y="13.5" width="16.4" height="12.5" rx="1" fill="#22d3ee"/><rect x="57.2" y="5.5" width="16.4" height="20.5" rx="1" fill="#22d3ee"/><rect x="75.6" y="5.6" width="16.4" height="20.4" rx="1" fill="#22d3ee"/></svg></td>
   <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
 </tr><tr>
-  <td class="rank">11</td>
-  <td class="tk">SOUTHBANK <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td class="rank">6</td>
+  <td class="tk">MTAR <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
   <td><span class="badge-os">BUY</span></td>
   <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹45.81</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹48.90</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹44.78</td>
+  <td class="nr">₹3,798.14</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹4,187.32</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹3,668.41</td>
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">67</td>
-  <td class="nr"><span class="badge-ob">42%</span></td>
-  <td class="nr"><span class="badge-os">81% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="19.6" x2="95" y2="19.6" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="21.6" width="16.4" height="4.4" rx="1" fill="#22d3ee"/><rect x="20.4" y="13.1" width="16.4" height="12.9" rx="1" fill="#f59e0b"/><rect x="38.8" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/><rect x="57.2" y="20.9" width="16.4" height="5.1" rx="1" fill="#22d3ee"/><rect x="75.6" y="19.5" width="16.4" height="6.5" rx="1" fill="#22d3ee"/></svg></td>
-  <td class="sigs"><span class="pill-b">Inside Bar Breakout</span></td>
+  <td class="nr">60</td>
+  <td class="nr"><span class="badge-ob">43%</span></td>
+  <td class="nr"><span class="badge-os">86% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+2.3%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Defence & PSU — average 5D return across 21 peers analysed in this scan">sector -1.8%&nbsp; <span class="pos" style="font-weight:700">▲ +4.1pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="15.4" x2="95" y2="15.4" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="24.8" width="16.4" height="1.2" rx="1" fill="#22d3ee"/><rect x="20.4" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/><rect x="38.8" y="21.0" width="16.4" height="5.0" rx="1" fill="#22d3ee"/><rect x="57.2" y="19.9" width="16.4" height="6.1" rx="1" fill="#22d3ee"/><rect x="75.6" y="6.8" width="16.4" height="19.2" rx="1" fill="#22d3ee"/></svg></td>
+  <td class="sigs"><span class="pill-b">Bullish Engulfing</span><span class="pill-b">Bullish Marubozu</span><span class="pill-b">HH-HL Structure</span></td>
 </tr><tr>
-  <td class="rank">12</td>
-  <td class="tk">SANOFI <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹3,401.90</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹3,506.39</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹3,367.07</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">43</td>
-  <td class="nr"><span class="badge-ob">37%</span></td>
-  <td class="nr"><span class="badge-os">81% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="18.6" x2="95" y2="18.6" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="21.2" width="16.4" height="4.8" rx="1" fill="#22d3ee"/><rect x="20.4" y="19.1" width="16.4" height="6.9" rx="1" fill="#22d3ee"/><rect x="38.8" y="20.4" width="16.4" height="5.6" rx="1" fill="#22d3ee"/><rect x="57.2" y="19.4" width="16.4" height="6.6" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
-</tr><tr>
-  <td class="rank">13</td>
-  <td class="tk">CDSL <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹1,431.90</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹1,853.97</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹1,291.21</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">54</td>
-  <td class="nr"><span class="badge-ob">44%</span></td>
-  <td class="nr"><span class="badge-os">80% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="21.2" x2="95" y2="21.2" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="23.8" width="16.4" height="2.2" rx="1" fill="#22d3ee"/><rect x="20.4" y="23.4" width="16.4" height="2.6" rx="1" fill="#22d3ee"/><rect x="38.8" y="21.6" width="16.4" height="4.4" rx="1" fill="#22d3ee"/><rect x="57.2" y="22.5" width="16.4" height="3.5" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">Inside Bar Breakout</span><span class="pill-b">HH-HL Structure</span></td>
-</tr><tr>
-  <td class="rank">14</td>
-  <td class="tk">STYLAMIND <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹3,284.80</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹3,777.37</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹3,120.61</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">51</td>
-  <td class="nr"><span class="badge-ob">37%</span></td>
-  <td class="nr"><span class="badge-os">80% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="18.7" x2="95" y2="18.7" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="20.5" width="16.4" height="5.5" rx="1" fill="#22d3ee"/><rect x="20.4" y="15.0" width="16.4" height="11.0" rx="1" fill="#22d3ee"/><rect x="38.8" y="11.1" width="16.4" height="14.9" rx="1" fill="#f59e0b"/><rect x="57.2" y="21.2" width="16.4" height="4.8" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
-</tr><tr>
-  <td class="rank">15</td>
-  <td class="tk">JUSTDIAL <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹564.05</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹645.86</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹536.78</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">55</td>
-  <td class="nr"><span class="badge-ob">40%</span></td>
-  <td class="nr"><span class="badge-os">80% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="18.9" x2="95" y2="18.9" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="21.1" width="16.4" height="4.9" rx="1" fill="#22d3ee"/><rect x="20.4" y="17.5" width="16.4" height="8.5" rx="1" fill="#22d3ee"/><rect x="38.8" y="15.8" width="16.4" height="10.2" rx="1" fill="#22d3ee"/><rect x="57.2" y="20.5" width="16.4" height="5.5" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">Inside Bar Breakout</span><span class="pill-b">HH-HL Structure</span></td>
-</tr><tr>
-  <td class="rank">16</td>
+  <td class="rank">7</td>
   <td class="tk">ANANDRATHI <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
   <td><span class="badge-os">BUY</span></td>
   <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
@@ -4686,54 +4637,13 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="color:#fca5a5;font-weight:700">₹1,842.46</td>
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
   <td class="nr">71</td>
-  <td class="nr"><span class="badge-nt">51%</span></td>
-  <td class="nr"><span class="badge-os">80% · High</span></td>
+  <td class="nr"><span class="badge-nt">52%</span></td>
+  <td class="nr"><span class="badge-os">85% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+4.1%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Microcap / Other — average 5D return across 331 peers analysed in this scan">sector +0.1%&nbsp; <span class="pos" style="font-weight:700">▲ +4.0pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="18.5" x2="95" y2="18.5" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="18.2" width="16.4" height="7.8" rx="1" fill="#22d3ee"/><rect x="20.4" y="20.4" width="16.4" height="5.6" rx="1" fill="#22d3ee"/><rect x="38.8" y="21.7" width="16.4" height="4.3" rx="1" fill="#22d3ee"/><rect x="57.2" y="20.3" width="16.4" height="5.7" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
   <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
 </tr><tr>
-  <td class="rank">17</td>
-  <td class="tk">SOLARA <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹568.90</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹605.59</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹556.67</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">59</td>
-  <td class="nr"><span class="badge-ob">39%</span></td>
-  <td class="nr"><span class="badge-os">80% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="20.4" x2="95" y2="20.4" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="22.1" width="16.4" height="3.9" rx="1" fill="#22d3ee"/><rect x="20.4" y="23.8" width="16.4" height="2.2" rx="1" fill="#22d3ee"/><rect x="38.8" y="16.1" width="16.4" height="9.9" rx="1" fill="#22d3ee"/><rect x="57.2" y="16.6" width="16.4" height="9.4" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="na">—</span></td>
-</tr><tr>
-  <td class="rank">18</td>
-  <td class="tk">KIRLOSBROS</td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹1,920.50</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹1,996.10</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹1,895.30</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">49</td>
-  <td class="nr"><span class="badge-nt">47%</span></td>
-  <td class="nr"><span class="badge-os">80% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="4.0" x2="95" y2="4.0" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="18.7" width="16.4" height="7.3" rx="1" fill="#22d3ee"/><rect x="20.4" y="20.9" width="16.4" height="5.1" rx="1" fill="#22d3ee"/><rect x="38.8" y="19.2" width="16.4" height="6.8" rx="1" fill="#22d3ee"/><rect x="57.2" y="19.3" width="16.4" height="6.7" rx="1" fill="#22d3ee"/><rect x="75.6" y="23.2" width="16.4" height="2.8" rx="1" fill="#22d3ee"/></svg></td>
-  <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
-</tr><tr>
-  <td class="rank">19</td>
-  <td class="tk">SHOPERSTOP <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
-  <td><span class="badge-os">BUY</span></td>
-  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
-  <td class="nr">₹365.25</td>
-  <td class="nr" style="color:#6ee7b7;font-weight:700">₹421.47</td>
-  <td class="nr" style="color:#fca5a5;font-weight:700">₹346.51</td>
-  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
-  <td class="nr">64</td>
-  <td class="nr"><span class="badge-ob">41%</span></td>
-  <td class="nr"><span class="badge-os">79% · High</span></td>
-  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="25.6" x2="95" y2="25.6" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="25.0" width="16.4" height="1.0" rx="1" fill="#22d3ee"/><rect x="20.4" y="25.0" width="16.4" height="1.0" rx="1" fill="#22d3ee"/><rect x="38.8" y="25.0" width="16.4" height="1.0" rx="1" fill="#22d3ee"/><rect x="57.2" y="25.0" width="16.4" height="1.0" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
-  <td class="sigs"><span class="pill-b">Bullish Engulfing</span></td>
-</tr><tr>
-  <td class="rank">20</td>
+  <td class="rank">8</td>
   <td class="tk">PAYTM <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
   <td><span class="badge-os">BUY</span></td>
   <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
@@ -4743,8 +4653,189 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
   <td class="nr" style="font-family:var(--font-mono)">1:3</td>
   <td class="nr">55</td>
   <td class="nr"><span class="badge-nt">51%</span></td>
-  <td class="nr"><span class="badge-os">79% · High</span></td>
+  <td class="nr"><span class="badge-os">85% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+9.9%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Fintech & New Age — average 5D return across 12 peers analysed in this scan">sector +2.7%&nbsp; <span class="pos" style="font-weight:700">▲ +7.2pp</span></div></td>
   <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="17.9" x2="95" y2="17.9" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="19.2" width="16.4" height="6.8" rx="1" fill="#22d3ee"/><rect x="20.4" y="14.2" width="16.4" height="11.8" rx="1" fill="#22d3ee"/><rect x="38.8" y="14.4" width="16.4" height="11.6" rx="1" fill="#22d3ee"/><rect x="57.2" y="18.3" width="16.4" height="7.7" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
+</tr><tr>
+  <td class="rank">9</td>
+  <td class="tk">GMRINFRA</td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹734.93</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹755.47</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹728.09</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">60</td>
+  <td class="nr"><span class="badge-ob">37%</span></td>
+  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+4.5%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Capital Goods & Infra — average 5D return across 26 peers analysed in this scan">sector -0.4%&nbsp; <span class="pos" style="font-weight:700">▲ +5.0pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="12.9" x2="95" y2="12.9" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="13.1" width="16.4" height="12.9" rx="1" fill="#22d3ee"/><rect x="20.4" y="4.0" width="16.4" height="22.0" rx="1" fill="#22d3ee"/><rect x="38.8" y="19.2" width="16.4" height="6.8" rx="1" fill="#22d3ee"/><rect x="57.2" y="12.9" width="16.4" height="13.1" rx="1" fill="#22d3ee"/><rect x="75.6" y="11.8" width="16.4" height="14.2" rx="1" fill="#22d3ee"/></svg></td>
+  <td class="sigs"><span class="pill-b">Hammer</span><span class="pill-b">HH-HL Structure</span></td>
+</tr><tr>
+  <td class="rank">10</td>
+  <td class="tk">TATACOMM</td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹5,009.74</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹5,058.48</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹4,993.50</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">61</td>
+  <td class="nr"><span class="badge-ob">36%</span></td>
+  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+6.0%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Telecom & Media — average 5D return across 11 peers analysed in this scan">sector +0.6%&nbsp; <span class="pos" style="font-weight:700">▲ +5.4pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="13.8" x2="95" y2="13.8" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="10.7" width="16.4" height="15.3" rx="1" fill="#22d3ee"/><rect x="20.4" y="21.4" width="16.4" height="4.6" rx="1" fill="#22d3ee"/><rect x="38.8" y="16.1" width="16.4" height="9.9" rx="1" fill="#22d3ee"/><rect x="57.2" y="10.3" width="16.4" height="15.7" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#22d3ee"/></svg></td>
+  <td class="sigs"><span class="na">—</span></td>
+</tr><tr>
+  <td class="rank">11</td>
+  <td class="tk">MRPL <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹162.49</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹194.74</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹151.74</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">64</td>
+  <td class="nr"><span class="badge-ob">39%</span></td>
+  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+8.2%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Oil & Gas — average 5D return across 16 peers analysed in this scan">sector +0.4%&nbsp; <span class="pos" style="font-weight:700">▲ +7.8pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="23.3" x2="95" y2="23.3" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="24.7" width="16.4" height="1.3" rx="1" fill="#22d3ee"/><rect x="20.4" y="24.1" width="16.4" height="1.9" rx="1" fill="#22d3ee"/><rect x="38.8" y="20.9" width="16.4" height="5.1" rx="1" fill="#22d3ee"/><rect x="57.2" y="23.7" width="16.4" height="2.3" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">Bullish Marubozu</span><span class="pill-b">HH-HL Structure</span></td>
+</tr><tr>
+  <td class="rank">12</td>
+  <td class="tk">CDSL <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹1,431.90</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹1,853.97</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹1,291.21</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">54</td>
+  <td class="nr"><span class="badge-ob">44%</span></td>
+  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+6.0%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Fintech & New Age — average 5D return across 12 peers analysed in this scan">sector +2.7%&nbsp; <span class="pos" style="font-weight:700">▲ +3.4pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="21.2" x2="95" y2="21.2" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="23.8" width="16.4" height="2.2" rx="1" fill="#22d3ee"/><rect x="20.4" y="23.4" width="16.4" height="2.6" rx="1" fill="#22d3ee"/><rect x="38.8" y="21.6" width="16.4" height="4.4" rx="1" fill="#22d3ee"/><rect x="57.2" y="22.5" width="16.4" height="3.5" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">Inside Bar Breakout</span><span class="pill-b">HH-HL Structure</span></td>
+</tr><tr>
+  <td class="rank">13</td>
+  <td class="tk">IFBIND <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹1,380.50</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹1,834.10</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹1,229.30</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">68</td>
+  <td class="nr"><span class="badge-ob">43%</span></td>
+  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+7.6%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Microcap / Other — average 5D return across 331 peers analysed in this scan">sector +0.1%&nbsp; <span class="pos" style="font-weight:700">▲ +7.5pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="23.5" x2="95" y2="23.5" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="25.0" width="16.4" height="1.0" rx="1" fill="#22d3ee"/><rect x="20.4" y="21.5" width="16.4" height="4.5" rx="1" fill="#f59e0b"/><rect x="38.8" y="23.8" width="16.4" height="2.2" rx="1" fill="#22d3ee"/><rect x="57.2" y="21.0" width="16.4" height="5.0" rx="1" fill="#f59e0b"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
+</tr><tr>
+  <td class="rank">14</td>
+  <td class="tk">UBL <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹4,569.86</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹6,293.85</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹3,995.20</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">56</td>
+  <td class="nr"><span class="badge-ob">41%</span></td>
+  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr"><span class="neg" style="font-weight:700;font-size:11.5px">-0.0%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="FMCG & Consumer — average 5D return across 25 peers analysed in this scan">sector +1.5%&nbsp; <span class="neg" style="font-weight:700">▼ -1.5pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="17.1" x2="95" y2="17.1" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="16.7" width="16.4" height="9.3" rx="1" fill="#22d3ee"/><rect x="20.4" y="24.0" width="16.4" height="2.0" rx="1" fill="#22d3ee"/><rect x="38.8" y="13.4" width="16.4" height="12.6" rx="1" fill="#22d3ee"/><rect x="57.2" y="19.7" width="16.4" height="6.3" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">Bullish Engulfing</span><span class="pill-b">Bullish Marubozu</span><span class="pill-b">HH-HL Structure</span></td>
+</tr><tr>
+  <td class="rank">15</td>
+  <td class="tk">KALYANKJIL <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹476.15</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹693.83</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹403.59</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">66</td>
+  <td class="nr"><span class="badge-nt">47%</span></td>
+  <td class="nr"><span class="badge-os">84% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+24.6%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Retail & E-Commerce — average 5D return across 11 peers analysed in this scan">sector +3.3%&nbsp; <span class="pos" style="font-weight:700">▲ +21.4pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="23.1" x2="95" y2="23.1" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="25.0" width="16.4" height="1.0" rx="1" fill="#22d3ee"/><rect x="20.4" y="21.5" width="16.4" height="4.5" rx="1" fill="#f59e0b"/><rect x="38.8" y="16.0" width="16.4" height="10.0" rx="1" fill="#f59e0b"/><rect x="57.2" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/><rect x="75.6" y="4.3" width="16.4" height="21.7" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">HH-HL Structure</span><span class="pill-b">Gap-Up on Volume</span></td>
+</tr><tr>
+  <td class="rank">16</td>
+  <td class="tk">KIRLOSBROS</td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹1,920.50</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹1,996.10</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹1,895.30</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">49</td>
+  <td class="nr"><span class="badge-nt">47%</span></td>
+  <td class="nr"><span class="badge-os">83% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+3.7%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Microcap / Other — average 5D return across 331 peers analysed in this scan">sector +0.1%&nbsp; <span class="pos" style="font-weight:700">▲ +3.6pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="4.0" x2="95" y2="4.0" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="18.7" width="16.4" height="7.3" rx="1" fill="#22d3ee"/><rect x="20.4" y="20.9" width="16.4" height="5.1" rx="1" fill="#22d3ee"/><rect x="38.8" y="19.2" width="16.4" height="6.8" rx="1" fill="#22d3ee"/><rect x="57.2" y="19.3" width="16.4" height="6.7" rx="1" fill="#22d3ee"/><rect x="75.6" y="23.2" width="16.4" height="2.8" rx="1" fill="#22d3ee"/></svg></td>
+  <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
+</tr><tr>
+  <td class="rank">17</td>
+  <td class="tk">FSL <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹259.71</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹341.49</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹232.45</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">61</td>
+  <td class="nr"><span class="badge-ob">41%</span></td>
+  <td class="nr"><span class="badge-os">83% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+8.1%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="IT & Technology — average 5D return across 29 peers analysed in this scan">sector +1.9%&nbsp; <span class="pos" style="font-weight:700">▲ +6.1pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="18.1" x2="95" y2="18.1" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="9.5" width="16.4" height="16.5" rx="1" fill="#f59e0b"/><rect x="20.4" y="21.7" width="16.4" height="4.3" rx="1" fill="#22d3ee"/><rect x="38.8" y="19.9" width="16.4" height="6.1" rx="1" fill="#22d3ee"/><rect x="57.2" y="21.6" width="16.4" height="4.4" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">Inside Bar Breakout</span><span class="pill-b">Gap-Up on Volume</span></td>
+</tr><tr>
+  <td class="rank">18</td>
+  <td class="tk">EQUITASBNK <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹82.24</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹103.45</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹75.17</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">59</td>
+  <td class="nr"><span class="badge-ob">32%</span></td>
+  <td class="nr"><span class="badge-os">83% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+7.8%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Banking & Finance — average 5D return across 50 peers analysed in this scan">sector +1.3%&nbsp; <span class="pos" style="font-weight:700">▲ +6.5pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="16.8" x2="95" y2="16.8" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="16.8" width="16.4" height="9.2" rx="1" fill="#22d3ee"/><rect x="20.4" y="7.7" width="16.4" height="18.3" rx="1" fill="#f59e0b"/><rect x="38.8" y="16.8" width="16.4" height="9.2" rx="1" fill="#22d3ee"/><rect x="57.2" y="18.2" width="16.4" height="7.8" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">Inside Bar Breakout</span><span class="pill-b">HH-HL Structure</span></td>
+</tr><tr>
+  <td class="rank">19</td>
+  <td class="tk">BAJAJCON <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹670.25</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹995.57</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹561.81</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">67</td>
+  <td class="nr"><span class="badge-ob">39%</span></td>
+  <td class="nr"><span class="badge-os">83% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+8.8%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="FMCG & Consumer — average 5D return across 25 peers analysed in this scan">sector +1.5%&nbsp; <span class="pos" style="font-weight:700">▲ +7.3pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="19.9" x2="95" y2="19.9" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="21.8" width="16.4" height="4.2" rx="1" fill="#22d3ee"/><rect x="20.4" y="22.0" width="16.4" height="4.0" rx="1" fill="#22d3ee"/><rect x="38.8" y="20.5" width="16.4" height="5.5" rx="1" fill="#22d3ee"/><rect x="57.2" y="16.3" width="16.4" height="9.7" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
+  <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
+</tr><tr>
+  <td class="rank">20</td>
+  <td class="tk">CENTURYPLY <span class="surge-dot" title="Volume surge: today ≥2x 20D ADV">⚡</span></td>
+  <td><span class="badge-os">BUY</span></td>
+  <td class="nr" style="font-family:var(--font-mono);font-size:10.5px">10 Jul 2026</td>
+  <td class="nr">₹790.00</td>
+  <td class="nr" style="color:#6ee7b7;font-weight:700">₹913.75</td>
+  <td class="nr" style="color:#fca5a5;font-weight:700">₹748.75</td>
+  <td class="nr" style="font-family:var(--font-mono)">1:3</td>
+  <td class="nr">64</td>
+  <td class="nr"><span class="badge-ob">36%</span></td>
+  <td class="nr"><span class="badge-os">82% · High</span></td>
+  <td class="nr"><span class="pos" style="font-weight:700;font-size:11.5px">+1.9%</span><div style="font-size:8.5px;color:var(--txt2);margin-top:2px;white-space:nowrap" title="Building Materials — average 5D return across 10 peers analysed in this scan">sector +1.1%&nbsp; <span class="pos" style="font-weight:700">▲ +0.9pp</span></div></td>
+  <td><svg viewBox="0 0 96 30" width="96" height="30" xmlns="http://www.w3.org/2000/svg" style="display:block" role="img" aria-label="5-day trailing volume"><line x1="1" y1="19.3" x2="95" y2="19.3" stroke="#64748b" stroke-width="1" stroke-dasharray="2,2"/><rect x="2.0" y="20.0" width="16.4" height="6.0" rx="1" fill="#22d3ee"/><rect x="20.4" y="20.6" width="16.4" height="5.4" rx="1" fill="#22d3ee"/><rect x="38.8" y="20.4" width="16.4" height="5.6" rx="1" fill="#22d3ee"/><rect x="57.2" y="23.0" width="16.4" height="3.0" rx="1" fill="#22d3ee"/><rect x="75.6" y="4.0" width="16.4" height="22.0" rx="1" fill="#f59e0b"/></svg></td>
   <td class="sigs"><span class="pill-b">HH-HL Structure</span></td>
 </tr></tbody></table></div>
 
@@ -4781,7 +4872,7 @@ footer{border-top:1px solid var(--border);padding:14px 0 0;margin-top:32px;
       </div>
     </div>
   </div>
-  <div class="fts" style="margin-top:10px">Report generated: 12 Jul 2026  10:53:11 AM IST · NSE Nifty 500 Professional Dashboard v8 (Tabbed / ETF Edition) · Powered by Python + yfinance</div>
+  <div class="fts" style="margin-top:10px">Report generated: 12 Jul 2026  08:19:40 PM IST · NSE Nifty 500 Professional Dashboard v8 (Tabbed / ETF Edition) · Powered by Python + yfinance</div>
 </footer>
 
 </div>
@@ -4843,13 +4934,26 @@ function downloadFullReport(){
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'NSE_Nifty500_Dashboard_20260712_105311.html';
+    a.download = 'NSE_Nifty500_Dashboard_20260712_201940.html';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
   }catch(e){
     alert('Download failed: ' + e.message);
+  }
+}
+
+function toggleTheme(){
+  var root = document.documentElement;
+  var knob = document.getElementById('themeKnob');
+  var isLight = root.getAttribute('data-theme') === 'light';
+  if(isLight){
+    root.removeAttribute('data-theme');
+    if(knob) knob.textContent = '🌙';
+  }else{
+    root.setAttribute('data-theme','light');
+    if(knob) knob.textContent = '☀️';
   }
 }</script>
 </body></html>
